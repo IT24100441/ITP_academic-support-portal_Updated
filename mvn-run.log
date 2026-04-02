@@ -1,0 +1,311 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< com.example:academic-support-portal >-----------------
+[INFO] Building academic-support-portal 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.5:run (default-cli) > test-compile @ academic-support-portal >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ academic-support-portal ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ academic-support-portal ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ academic-support-portal ---
+[INFO] skip non existing resourceDirectory D:\SLIIT Project\academic-support-portal v3\academic-support-portal\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ academic-support-portal ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:3.2.5:run (default-cli) < test-compile @ academic-support-portal <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.5:run (default-cli) @ academic-support-portal ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-04-02 00:31:06 - Starting AcademicSupportPortalApplication using Java 22.0.2 with PID 91144 (D:\SLIIT Project\academic-support-portal v3\academic-support-portal\target\classes started by Dell in D:\SLIIT Project\academic-support-portal v3\academic-support-portal)
+2026-04-02 00:31:06 - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-04-02 00:31:06 - No active profile set, falling back to 1 default profile: "default"
+2026-04-02 00:31:06 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-02 00:31:06 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-02 00:31:07 - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2026-04-02 00:31:07 - Finished Spring Data repository scanning in 98 ms. Found 24 MongoDB repository interfaces.
+2026-04-02 00:31:07 - Tomcat initialized with port 8080 (http)
+2026-04-02 00:31:07 - Starting service [Tomcat]
+2026-04-02 00:31:07 - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-04-02 00:31:07 - Initializing Spring embedded WebApplicationContext
+2026-04-02 00:31:07 - Root WebApplicationContext: initialization completed in 1352 ms
+2026-04-02 00:31:07 - MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.11.2"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/22.0.2+9-70"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@3fe6136d, com.mongodb.Jep395RecordCodecProvider@7dde2352, com.mongodb.KotlinCodecProvider@189d8691]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null}
+2026-04-02 00:31:07 - Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=27, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=25155700}
+2026-04-02 00:31:08 - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-02 00:31:08 - LiveReload server is running on port 35729
+2026-04-02 00:31:09 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6a43f378, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2e037121, org.springframework.security.web.context.SecurityContextHolderFilter@3cb23871, org.springframework.security.web.header.HeaderWriterFilter@79386d47, org.springframework.web.filter.CorsFilter@4847f493, org.springframework.security.web.authentication.logout.LogoutFilter@3d27681d, com.example.academic_support_portal.security.JwtAuthenticationFilter@16faf02c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@d080403, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@df17586, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3aebfb0e, org.springframework.security.web.session.SessionManagementFilter@5d9a7b7b, org.springframework.security.web.access.ExceptionTranslationFilter@48e78cd7, org.springframework.security.web.access.intercept.AuthorizationFilter@6d85b9a]
+2026-04-02 00:31:09 - Tomcat started on port 8080 (http) with context path ''
+2026-04-02 00:31:09 - Started AcademicSupportPortalApplication in 3.383 seconds (process running for 3.754)
+2026-04-02 00:31:49 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-02 00:31:49 - Initializing Servlet 'dispatcherServlet'
+2026-04-02 00:31:49 - Completed initialization in 1 ms
+2026-04-02 00:31:49 - Securing POST /api/auth/register
+2026-04-02 00:31:49 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:31:49 - Secured POST /api/auth/register
+2026-04-02 00:31:49 - Validation error: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.example.academic_support_portal.auth.dto.AuthResponse> com.example.academic_support_portal.auth.controller.AuthController.register(com.example.academic_support_portal.auth.dto.RegisterRequest): [Field error in object 'registerRequest' on field 'phone': rejected value [null]; codes [NotBlank.registerRequest.phone,NotBlank.phone,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [registerRequest.phone,phone]; arguments []; default message [phone]]; default message [Phone number is required]] 
+2026-04-02 00:31:49 - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.example.academic_support_portal.auth.dto.AuthResponse> com.example.academic_support_portal.auth.controller.AuthController.register(com.example.academic_support_portal.auth.dto.RegisterRequest): [Field error in object 'registerRequest' on field 'phone': rejected value [null]; codes [NotBlank.registerRequest.phone,NotBlank.phone,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [registerRequest.phone,phone]; arguments []; default message [phone]]; default message [Phone number is required]] ]
+2026-04-02 00:31:50 - Securing POST /api/auth/login
+2026-04-02 00:31:50 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:31:50 - Secured POST /api/auth/login
+2026-04-02 00:31:50 - Login attempt for user: teststudent@demo.com
+2026-04-02 00:31:50 - Failed to find user 'teststudent@demo.com'
+2026-04-02 00:31:50 - Authentication failed for user: teststudent@demo.com - Bad credentials
+2026-04-02 00:31:50 - Login attempt with invalid credentials
+2026-04-02 00:31:50 - Resolved [org.springframework.security.authentication.BadCredentialsException: Invalid email or password]
+2026-04-02 00:32:00 - Securing POST /api/auth/register
+2026-04-02 00:32:00 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:00 - Secured POST /api/auth/register
+2026-04-02 00:32:00 - Validation error: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.example.academic_support_portal.auth.dto.AuthResponse> com.example.academic_support_portal.auth.controller.AuthController.register(com.example.academic_support_portal.auth.dto.RegisterRequest): [Field error in object 'registerRequest' on field 'phone': rejected value [null]; codes [NotBlank.registerRequest.phone,NotBlank.phone,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [registerRequest.phone,phone]; arguments []; default message [phone]]; default message [Phone number is required]] 
+2026-04-02 00:32:00 - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.example.academic_support_portal.auth.dto.AuthResponse> com.example.academic_support_portal.auth.controller.AuthController.register(com.example.academic_support_portal.auth.dto.RegisterRequest): [Field error in object 'registerRequest' on field 'phone': rejected value [null]; codes [NotBlank.registerRequest.phone,NotBlank.phone,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [registerRequest.phone,phone]; arguments []; default message [phone]]; default message [Phone number is required]] ]
+2026-04-02 00:32:00 - Securing POST /api/auth/login
+2026-04-02 00:32:00 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:00 - Secured POST /api/auth/login
+2026-04-02 00:32:00 - Login attempt for user: demo123@test.com
+2026-04-02 00:32:00 - Failed to find user 'demo123@test.com'
+2026-04-02 00:32:00 - Authentication failed for user: demo123@test.com - Bad credentials
+2026-04-02 00:32:00 - Login attempt with invalid credentials
+2026-04-02 00:32:00 - Resolved [org.springframework.security.authentication.BadCredentialsException: Invalid email or password]
+2026-04-02 00:32:35 - Securing POST /api/auth/login
+2026-04-02 00:32:35 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:35 - Secured POST /api/auth/login
+2026-04-02 00:32:35 - Login attempt for user: admin@campus.com
+2026-04-02 00:32:35 - Authenticated user
+2026-04-02 00:32:35 - Authentication successful for user: admin@campus.com
+2026-04-02 00:32:36 - JWT token generated successfully for user: admin@campus.com
+2026-04-02 00:32:36 - Securing POST /api/auth/login
+2026-04-02 00:32:36 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:36 - Secured POST /api/auth/login
+2026-04-02 00:32:36 - Login attempt for user: student@campus.com
+2026-04-02 00:32:36 - Request failed with status 400 BAD_REQUEST: Email must be in format studentXXXXXX@gmail.com
+2026-04-02 00:32:36 - Resolved [org.springframework.web.server.ResponseStatusException: 400 BAD_REQUEST "Email must be in format studentXXXXXX@gmail.com"]
+2026-04-02 00:32:36 - Securing POST /api/auth/login
+2026-04-02 00:32:36 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:36 - Secured POST /api/auth/login
+2026-04-02 00:32:36 - Login attempt for user: tutor@campus.com
+2026-04-02 00:32:36 - Authenticated user
+2026-04-02 00:32:36 - Authentication successful for user: tutor@campus.com
+2026-04-02 00:32:36 - JWT token generated successfully for user: tutor@campus.com
+2026-04-02 00:32:36 - Securing GET /api/equipment
+2026-04-02 00:32:36 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:36 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:32:36 - Securing GET /error
+2026-04-02 00:32:36 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:36 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:32:36 - Securing GET /api/study-spots
+2026-04-02 00:32:36 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:36 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:32:36 - Securing GET /error
+2026-04-02 00:32:36 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:36 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:32:36 - Securing GET /api/tutors
+2026-04-02 00:32:36 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:36 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:32:36 - Securing GET /error
+2026-04-02 00:32:36 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:36 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:32:36 - Securing GET /api/bookings
+2026-04-02 00:32:36 - Secured GET /api/bookings
+2026-04-02 00:32:36 - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-04-02 00:32:36 - Securing GET /error
+2026-04-02 00:32:36 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:36 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:32:36 - Securing GET /api/issues
+2026-04-02 00:32:36 - Secured GET /api/issues
+2026-04-02 00:32:58 - Securing POST /api/auth/login
+2026-04-02 00:32:58 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:58 - Secured POST /api/auth/login
+2026-04-02 00:32:58 - Login attempt for user: admin@campus.com
+2026-04-02 00:32:58 - Authenticated user
+2026-04-02 00:32:58 - Authentication successful for user: admin@campus.com
+2026-04-02 00:32:58 - JWT token generated successfully for user: admin@campus.com
+2026-04-02 00:32:58 - Securing GET /api/equipment
+2026-04-02 00:32:58 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:58 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:32:58 - Securing GET /error
+2026-04-02 00:32:58 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:58 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:32:58 - Securing GET /api/study-spots
+2026-04-02 00:32:58 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:58 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:32:58 - Securing GET /error
+2026-04-02 00:32:58 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:58 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:32:58 - Securing POST /api/auth/login
+2026-04-02 00:32:58 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:58 - Secured POST /api/auth/login
+2026-04-02 00:32:58 - Login attempt for user: student@campus.com
+2026-04-02 00:32:58 - Request failed with status 400 BAD_REQUEST: Email must be in format studentXXXXXX@gmail.com
+2026-04-02 00:32:58 - Resolved [org.springframework.web.server.ResponseStatusException: 400 BAD_REQUEST "Email must be in format studentXXXXXX@gmail.com"]
+2026-04-02 00:32:58 - Securing POST /api/auth/login
+2026-04-02 00:32:58 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:32:58 - Secured POST /api/auth/login
+2026-04-02 00:32:58 - Login attempt for user: tutor@campus.com
+2026-04-02 00:32:58 - Authenticated user
+2026-04-02 00:32:58 - Authentication successful for user: tutor@campus.com
+2026-04-02 00:32:58 - JWT token generated successfully for user: tutor@campus.com
+2026-04-02 00:33:12 - Securing POST /api/auth/login
+2026-04-02 00:33:12 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:12 - Secured POST /api/auth/login
+2026-04-02 00:33:12 - Login attempt for user: admin@campus.com
+2026-04-02 00:33:13 - Authenticated user
+2026-04-02 00:33:13 - Authentication successful for user: admin@campus.com
+2026-04-02 00:33:13 - JWT token generated successfully for user: admin@campus.com
+2026-04-02 00:33:13 - Securing GET /api/equipment
+2026-04-02 00:33:13 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:13 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:33:13 - Securing GET /error
+2026-04-02 00:33:13 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:13 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:33:13 - Securing GET /api/study-spots
+2026-04-02 00:33:13 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:13 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:33:13 - Securing GET /error
+2026-04-02 00:33:13 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:13 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:33:13 - Securing GET /api/tutors
+2026-04-02 00:33:13 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:13 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:33:13 - Securing GET /error
+2026-04-02 00:33:13 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:13 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:33:22 - Securing POST /api/auth/login
+2026-04-02 00:33:22 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:22 - Secured POST /api/auth/login
+2026-04-02 00:33:22 - Login attempt for user: admin@campus.com
+2026-04-02 00:33:22 - Authenticated user
+2026-04-02 00:33:22 - Authentication successful for user: admin@campus.com
+2026-04-02 00:33:22 - JWT token generated successfully for user: admin@campus.com
+2026-04-02 00:33:31 - Securing GET /api/equipment
+2026-04-02 00:33:31 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:31 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:33:31 - Securing GET /error
+2026-04-02 00:33:31 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:31 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:33:38 - Securing GET /api/study-spots
+2026-04-02 00:33:38 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:38 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:33:38 - Securing GET /error
+2026-04-02 00:33:38 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:38 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:33:45 - Securing GET /api/study-spots
+2026-04-02 00:33:45 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:45 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:33:45 - Securing GET /error
+2026-04-02 00:33:45 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:45 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:33:54 - Securing POST /api/auth/login
+2026-04-02 00:33:54 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:33:54 - Secured POST /api/auth/login
+2026-04-02 00:33:54 - Login attempt for user: admin@campus.com
+2026-04-02 00:33:54 - Authenticated user
+2026-04-02 00:33:54 - Authentication successful for user: admin@campus.com
+2026-04-02 00:33:54 - JWT token generated successfully for user: admin@campus.com
+2026-04-02 00:34:02 - Securing POST /api/auth/login
+2026-04-02 00:34:02 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:34:02 - Secured POST /api/auth/login
+2026-04-02 00:34:02 - Login attempt for user: admin@campus.com
+2026-04-02 00:34:02 - Authenticated user
+2026-04-02 00:34:02 - Authentication successful for user: admin@campus.com
+2026-04-02 00:34:02 - JWT token generated successfully for user: admin@campus.com
+2026-04-02 00:34:16 - Securing POST /api/auth/login
+2026-04-02 00:34:16 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:34:16 - Secured POST /api/auth/login
+2026-04-02 00:34:16 - Login attempt for user: admin@campus.com
+2026-04-02 00:34:16 - Authenticated user
+2026-04-02 00:34:16 - Authentication successful for user: admin@campus.com
+2026-04-02 00:34:16 - JWT token generated successfully for user: admin@campus.com
+2026-04-02 00:34:16 - Securing GET /api/equipment
+2026-04-02 00:34:16 - Secured GET /api/equipment
+2026-04-02 00:34:16 - Securing GET /api/study-spots
+2026-04-02 00:34:16 - Secured GET /api/study-spots
+2026-04-02 00:34:16 - Securing GET /error
+2026-04-02 00:34:16 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:34:16 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:34:16 - Securing GET /api/tutors
+2026-04-02 00:34:16 - Secured GET /api/tutors
+2026-04-02 00:34:16 - Securing GET /api/resources
+2026-04-02 00:34:16 - Secured GET /api/resources
+2026-04-02 00:34:16 - Securing GET /api/study-groups
+2026-04-02 00:34:16 - Secured GET /api/study-groups
+2026-04-02 00:34:16 - Securing GET /error
+2026-04-02 00:34:16 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:34:16 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:34:16 - Securing GET /api/bookings
+2026-04-02 00:34:16 - Secured GET /api/bookings
+2026-04-02 00:34:16 - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-04-02 00:34:16 - Securing GET /error
+2026-04-02 00:34:16 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:34:16 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:34:28 - Securing POST /api/auth/login
+2026-04-02 00:34:28 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:34:28 - Secured POST /api/auth/login
+2026-04-02 00:34:28 - Login attempt for user: admin@campus.com
+2026-04-02 00:34:28 - Authenticated user
+2026-04-02 00:34:28 - Authentication successful for user: admin@campus.com
+2026-04-02 00:34:28 - JWT token generated successfully for user: admin@campus.com
+2026-04-02 00:34:28 - Securing GET /api/equipment
+2026-04-02 00:34:28 - Secured GET /api/equipment
+2026-04-02 00:34:28 - Securing GET /api/study-spots
+2026-04-02 00:34:28 - Secured GET /api/study-spots
+2026-04-02 00:34:28 - Securing GET /error
+2026-04-02 00:34:28 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:34:28 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:34:28 - Securing GET /api/tutors
+2026-04-02 00:34:28 - Secured GET /api/tutors
+2026-04-02 00:34:28 - Securing GET /api/resources
+2026-04-02 00:34:28 - Secured GET /api/resources
+2026-04-02 00:34:29 - Securing GET /api/study-groups
+2026-04-02 00:34:29 - Secured GET /api/study-groups
+2026-04-02 00:34:29 - Securing GET /error
+2026-04-02 00:34:29 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:34:29 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:35:10 - Securing POST /api/auth/login
+2026-04-02 00:35:10 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:35:10 - Secured POST /api/auth/login
+2026-04-02 00:35:10 - Login attempt for user: admin@campus.com
+2026-04-02 00:35:10 - Authenticated user
+2026-04-02 00:35:10 - Authentication successful for user: admin@campus.com
+2026-04-02 00:35:10 - JWT token generated successfully for user: admin@campus.com
+2026-04-02 00:35:10 - Securing GET /api/study-rooms
+2026-04-02 00:35:10 - Secured GET /api/study-rooms
+2026-04-02 00:35:10 - Securing GET /api/bookings
+2026-04-02 00:35:10 - Secured GET /api/bookings
+2026-04-02 00:35:10 - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-04-02 00:35:10 - Securing GET /error
+2026-04-02 00:35:10 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:35:10 - Pre-authenticated entry point called. Rejecting access
+2026-04-02 00:35:10 - Securing GET /api/study-groups
+2026-04-02 00:35:10 - Secured GET /api/study-groups
+2026-04-02 00:35:10 - Securing GET /error
+2026-04-02 00:35:10 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-02 00:35:10 - Pre-authenticated entry point called. Rejecting access
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  06:48 min
+[INFO] Finished at: 2026-04-02T00:37:51+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.2.5:run (default-cli) on project academic-support-portal: Process terminated with exit code: -1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

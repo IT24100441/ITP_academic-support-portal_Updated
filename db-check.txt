@@ -1,0 +1,7 @@
+﻿=== COLLECTIONS IN academic_support_portal DATABASE ===
+users: admin@campus.com (ADMIN), student@campus.com (STUDENT), tutor@campus.com (TUTOR)
+equipment: 10 docs -> MacBook Pro, Dell XPS 15, iPad Pro 12.9
+study_rooms: 0 docs -> , 
+tutors: 2 docs -> Dr. Sarah Wilson
+resources: 2 docs
+study_groups: 0 docs -> 

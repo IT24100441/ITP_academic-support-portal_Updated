@@ -1,0 +1,134 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< com.example:academic-support-portal >-----------------
+[INFO] Building academic-support-portal 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.5:run (default-cli) > test-compile @ academic-support-portal >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ academic-support-portal ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ academic-support-portal ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ academic-support-portal ---
+[INFO] skip non existing resourceDirectory D:\SLIIT Project\academic-support-portal v3\academic-support-portal\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ academic-support-portal ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 1 source file with javac [debug release 17] to target\test-classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] <<< spring-boot:3.2.5:run (default-cli) < test-compile @ academic-support-portal <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.5:run (default-cli) @ academic-support-portal ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-04-01 21:16:56 - Starting AcademicSupportPortalApplication using Java 22.0.2 with PID 86788 (D:\SLIIT Project\academic-support-portal v3\academic-support-portal\target\classes started by Dell in D:\SLIIT Project\academic-support-portal v3\academic-support-portal)
+2026-04-01 21:16:56 - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-04-01 21:16:56 - No active profile set, falling back to 1 default profile: "default"
+2026-04-01 21:16:56 - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-01 21:16:56 - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-01 21:16:56 - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2026-04-01 21:16:57 - Finished Spring Data repository scanning in 89 ms. Found 24 MongoDB repository interfaces.
+2026-04-01 21:16:57 - Tomcat initialized with port 8080 (http)
+2026-04-01 21:16:57 - Starting service [Tomcat]
+2026-04-01 21:16:57 - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-04-01 21:16:57 - Initializing Spring embedded WebApplicationContext
+2026-04-01 21:16:57 - Root WebApplicationContext: initialization completed in 1306 ms
+2026-04-01 21:16:57 - MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.11.2"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/22.0.2+9-70"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@58359625, com.mongodb.Jep395RecordCodecProvider@c149ec, com.mongodb.KotlinCodecProvider@676b856f]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null}
+2026-04-01 21:16:57 - Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=27, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=30924000}
+2026-04-01 21:16:58 - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-01 21:16:58 - LiveReload server is running on port 35729
+2026-04-01 21:16:58 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@33f5ff9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@44908cbb, org.springframework.security.web.context.SecurityContextHolderFilter@5d3fc99a, org.springframework.security.web.header.HeaderWriterFilter@2705732e, org.springframework.web.filter.CorsFilter@19d11e57, org.springframework.security.web.authentication.logout.LogoutFilter@20ffc6d3, com.example.academic_support_portal.security.JwtAuthenticationFilter@16cf8ea7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4152d26f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@490973fc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@192571e1, org.springframework.security.web.session.SessionManagementFilter@7d7239c0, org.springframework.security.web.access.ExceptionTranslationFilter@3ba74d79, org.springframework.security.web.access.intercept.AuthorizationFilter@65344b9e]
+2026-04-01 21:16:59 - Tomcat started on port 8080 (http) with context path ''
+2026-04-01 21:16:59 - Started AcademicSupportPortalApplication in 3.218 seconds (process running for 3.605)
+2026-04-01 21:17:30 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-01 21:17:30 - Initializing Servlet 'dispatcherServlet'
+2026-04-01 21:17:30 - Completed initialization in 1 ms
+2026-04-01 21:17:30 - Securing POST /api/auth/login
+2026-04-01 21:17:30 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:17:30 - Secured POST /api/auth/login
+2026-04-01 21:17:30 - Login attempt for user: x@t.com
+2026-04-01 21:17:30 - Failed to find user 'x@t.com'
+2026-04-01 21:17:30 - Authentication failed for user: x@t.com - Bad credentials
+2026-04-01 21:17:30 - Login attempt with invalid credentials
+2026-04-01 21:17:30 - Resolved [org.springframework.security.authentication.BadCredentialsException: Invalid email or password]
+2026-04-01 21:17:30 - Securing POST /api/auth/register
+2026-04-01 21:17:30 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:17:30 - Secured POST /api/auth/register
+2026-04-01 21:17:30 - Validation error: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.example.academic_support_portal.auth.dto.AuthResponse> com.example.academic_support_portal.auth.controller.AuthController.register(com.example.academic_support_portal.auth.dto.RegisterRequest) with 4 errors: [Field error in object 'registerRequest' on field 'password': rejected value [null]; codes [NotBlank.registerRequest.password,NotBlank.password,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [registerRequest.password,password]; arguments []; default message [password]]; default message [Password is required]] [Field error in object 'registerRequest' on field 'name': rejected value [null]; codes [NotBlank.registerRequest.name,NotBlank.name,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [registerRequest.name,name]; arguments []; default message [name]]; default message [Name is required]] [Field error in object 'registerRequest' on field 'phone': rejected value [null]; codes [NotBlank.registerRequest.phone,NotBlank.phone,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [registerRequest.phone,phone]; arguments []; default message [phone]]; default message [Phone number is required]] [Field error in object 'registerRequest' on field 'email': rejected value [null]; codes [NotBlank.registerRequest.email,NotBlank.email,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [registerRequest.email,email]; arguments []; default message [email]]; default message [Email is required]] 
+2026-04-01 21:17:30 - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<com.example.academic_support_portal.auth.dto.AuthResponse> com.example.academic_support_portal.auth.controller.AuthController.register(com.example.academic_support_portal.auth.dto.RegisterRequest) with 4 errors: [Field error in object 'registerRequest' on field 'password': rejected value [null]; codes [NotBlank.registerRequest.password,NotBlank.password,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [registerRequest.password,password]; arguments []; default message [password]]; default message [Password is required]] [Field error in object 'registerRequest' on field 'name': rejected value [null]; codes [NotBlank.registerRequest.name,NotBlank.name,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [registerRequest.name,name]; arguments []; default message [name]]; default message [Name is required]] [Field error in object 'registerRequest' on field 'phone': rejected value [null]; codes [NotBlank.registerRequest.phone,NotBlank.phone,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [registerRequest.phone,phone]; arguments []; default message [phone]]; default message [Phone number is required]] [Field error in object 'registerRequest' on field 'email': rejected value [null]; codes [NotBlank.registerRequest.email,NotBlank.email,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [registerRequest.email,email]; arguments []; default message [email]]; default message [Email is required]] ]
+2026-04-01 21:17:30 - Securing GET /api/study-spots
+2026-04-01 21:17:30 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:17:30 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 21:17:30 - Securing GET /error
+2026-04-01 21:17:30 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:17:30 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 21:17:30 - Securing GET /api/tutors
+2026-04-01 21:17:30 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:17:30 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 21:17:30 - Securing GET /error
+2026-04-01 21:17:30 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:17:30 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 21:17:30 - Securing GET /api/resources
+2026-04-01 21:17:30 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:17:30 - Secured GET /api/resources
+2026-04-01 21:18:11 - Securing GET /api/resources
+2026-04-01 21:18:11 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:18:11 - Secured GET /api/resources
+2026-04-01 21:18:11 - Securing GET /api/study-groups
+2026-04-01 21:18:11 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:18:11 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 21:18:11 - Securing GET /error
+2026-04-01 21:18:11 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:18:11 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 21:18:11 - Securing GET /api/calendar/events
+2026-04-01 21:18:11 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:18:11 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 21:18:11 - Securing GET /error
+2026-04-01 21:18:11 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:18:11 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 21:18:11 - Securing GET /api/issues
+2026-04-01 21:18:11 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:18:11 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 21:18:11 - Securing GET /error
+2026-04-01 21:18:11 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:18:11 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 21:18:11 - Securing GET /api/iot/sensors
+2026-04-01 21:18:11 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:18:11 - Secured GET /api/iot/sensors
+2026-04-01 21:18:11 - Securing GET /error
+2026-04-01 21:18:11 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 21:18:11 - Pre-authenticated entry point called. Rejecting access
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:36 min
+[INFO] Finished at: 2026-04-01T21:19:26+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.2.5:run (default-cli) on project academic-support-portal: Process terminated with exit code: -1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
