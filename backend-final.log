@@ -1,0 +1,281 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-04-01 19:21:17 - Starting AcademicSupportPortalApplication v0.0.1-SNAPSHOT using Java 25.0.2 with PID 72740 (D:\SLIIT Project\academic-support-portal v3\academic-support-portal\target\academic-support-portal-0.0.1-SNAPSHOT.jar started by Dell in D:\SLIIT Project\academic-support-portal v3\academic-support-portal)
+2026-04-01 19:21:17 - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-04-01 19:21:17 - No active profile set, falling back to 1 default profile: "default"
+2026-04-01 19:21:18 - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2026-04-01 19:21:18 - Finished Spring Data repository scanning in 106 ms. Found 24 MongoDB repository interfaces.
+2026-04-01 19:21:19 - Tomcat initialized with port 8080 (http)
+2026-04-01 19:21:19 - Starting service [Tomcat]
+2026-04-01 19:21:19 - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-04-01 19:21:19 - Initializing Spring embedded WebApplicationContext
+2026-04-01 19:21:19 - Root WebApplicationContext: initialization completed in 2148 ms
+2026-04-01 19:21:19 - MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.11.2"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Eclipse Adoptium/25.0.2+10-LTS"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@6dee8ae6, com.mongodb.Jep395RecordCodecProvider@5af64ce0, com.mongodb.KotlinCodecProvider@7e7e962d]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null}
+2026-04-01 19:21:20 - Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=27, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=77162800}
+2026-04-01 19:21:20 - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-01 19:21:21 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7d28cdcd, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@255ed8e4, org.springframework.security.web.context.SecurityContextHolderFilter@671d97bc, org.springframework.security.web.header.HeaderWriterFilter@62faf77, org.springframework.web.filter.CorsFilter@406ad6d5, org.springframework.security.web.authentication.logout.LogoutFilter@4b544732, com.example.academic_support_portal.security.JwtAuthenticationFilter@76563ae7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@602298b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1fb6b8fb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2a7bc16b, org.springframework.security.web.session.SessionManagementFilter@2c0798bd, org.springframework.security.web.access.ExceptionTranslationFilter@2a2b7a35, org.springframework.security.web.access.intercept.AuthorizationFilter@278fe428]
+2026-04-01 19:21:22 - Tomcat started on port 8080 (http) with context path ''
+2026-04-01 19:21:22 - Started AcademicSupportPortalApplication in 5.858 seconds (process running for 6.67)
+2026-04-01 19:21:46 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-01 19:21:46 - Initializing Servlet 'dispatcherServlet'
+2026-04-01 19:21:46 - Completed initialization in 1 ms
+2026-04-01 19:21:46 - Securing POST /api/auth/login
+2026-04-01 19:21:46 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:21:46 - Secured POST /api/auth/login
+2026-04-01 19:21:46 - Login attempt for user: test@test.com
+2026-04-01 19:21:46 - Failed to find user 'test@test.com'
+2026-04-01 19:21:46 - Authentication failed for user: test@test.com - Bad credentials
+2026-04-01 19:21:46 - Login attempt with invalid credentials
+2026-04-01 19:21:46 - Securing GET /api/study-spots
+2026-04-01 19:21:46 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:21:46 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 19:21:46 - Securing GET /error
+2026-04-01 19:21:46 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:21:46 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 19:21:46 - Securing GET /api/tutors
+2026-04-01 19:21:46 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:21:46 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 19:21:46 - Securing GET /error
+2026-04-01 19:21:46 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:21:46 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 19:23:55 - Securing GET /
+2026-04-01 19:23:55 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:23:55 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 19:23:55 - Securing GET /error
+2026-04-01 19:23:55 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:23:55 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 19:23:56 - Securing GET /
+2026-04-01 19:23:56 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:23:56 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 19:23:56 - Securing GET /error
+2026-04-01 19:23:56 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:23:56 - Pre-authenticated entry point called. Rejecting access
+2026-04-01 19:36:29 - Securing OPTIONS /api/auth/login
+2026-04-01 19:36:29 - Securing POST /api/auth/login
+2026-04-01 19:36:29 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:36:29 - Secured POST /api/auth/login
+2026-04-01 19:36:29 - Login attempt for user: sahan@gmail.com
+2026-04-01 19:36:29 - Failed to find user 'sahan@gmail.com'
+2026-04-01 19:36:29 - Authentication failed for user: sahan@gmail.com - Bad credentials
+2026-04-01 19:36:29 - Login attempt with invalid credentials
+2026-04-01 19:36:46 - Securing OPTIONS /api/auth/register
+2026-04-01 19:36:46 - Securing POST /api/auth/register
+2026-04-01 19:36:46 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:36:46 - Secured POST /api/auth/register
+2026-04-01 19:36:47 - User registered successfully: student1234@gmail.com
+2026-04-01 19:36:51 - Securing OPTIONS /api/study-rooms
+2026-04-01 19:36:51 - Securing OPTIONS /api/study-rooms
+2026-04-01 19:36:51 - Securing OPTIONS /api/study-rooms/status/summary
+2026-04-01 19:36:51 - Securing OPTIONS /api/study-rooms/status/summary
+2026-04-01 19:36:51 - Securing GET /api/study-rooms
+2026-04-01 19:36:51 - Securing GET /api/study-rooms/status/summary
+2026-04-01 19:36:51 - Secured GET /api/study-rooms
+2026-04-01 19:36:51 - Secured GET /api/study-rooms/status/summary
+2026-04-01 19:36:51 - Securing GET /api/study-rooms/status/summary
+2026-04-01 19:36:51 - Secured GET /api/study-rooms/status/summary
+2026-04-01 19:36:51 - Securing GET /api/study-rooms
+2026-04-01 19:36:51 - Secured GET /api/study-rooms
+2026-04-01 19:36:56 - Securing GET /api/study-rooms/status/summary
+2026-04-01 19:36:56 - Securing GET /api/study-rooms
+2026-04-01 19:36:56 - Secured GET /api/study-rooms/status/summary
+2026-04-01 19:36:56 - Secured GET /api/study-rooms
+2026-04-01 19:36:57 - Securing OPTIONS /api/issues
+2026-04-01 19:36:57 - Securing OPTIONS /api/issues
+2026-04-01 19:36:57 - Securing GET /api/issues
+2026-04-01 19:36:57 - Secured GET /api/issues
+2026-04-01 19:36:57 - Securing GET /api/issues
+2026-04-01 19:36:57 - Secured GET /api/issues
+2026-04-01 19:36:57 - Securing OPTIONS /api/equipment
+2026-04-01 19:36:57 - Securing OPTIONS /api/equipment
+2026-04-01 19:36:57 - Securing GET /api/equipment
+2026-04-01 19:36:57 - Secured GET /api/equipment
+2026-04-01 19:36:57 - Securing GET /api/equipment
+2026-04-01 19:36:57 - Securing OPTIONS /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:36:57 - Securing GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:36:57 - Secured GET /api/equipment
+2026-04-01 19:36:57 - Secured GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:36:57 - Securing GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:36:57 - Secured GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:00 - Securing GET /api/study-rooms
+2026-04-01 19:37:00 - Securing OPTIONS /api/dashboard/environment
+2026-04-01 19:37:00 - Securing OPTIONS /api/dashboard/environment
+2026-04-01 19:37:00 - Secured GET /api/study-rooms
+2026-04-01 19:37:00 - Securing GET /api/study-rooms
+2026-04-01 19:37:00 - Securing GET /api/dashboard/environment
+2026-04-01 19:37:00 - Secured GET /api/dashboard/environment
+2026-04-01 19:37:00 - Secured GET /api/study-rooms
+2026-04-01 19:37:00 - Securing GET /api/dashboard/environment
+2026-04-01 19:37:00 - Secured GET /api/dashboard/environment
+2026-04-01 19:37:01 - Securing OPTIONS /api/tutors?subject=&mode=&availability=
+2026-04-01 19:37:01 - Securing OPTIONS /api/study-circles/my
+2026-04-01 19:37:01 - Securing OPTIONS /api/study-circles
+2026-04-01 19:37:01 - Securing OPTIONS /api/resources
+2026-04-01 19:37:01 - Securing OPTIONS /api/study-circles
+2026-04-01 19:37:01 - Securing OPTIONS /api/tutors?subject=&mode=&availability=
+2026-04-01 19:37:01 - Securing GET /api/tutors?subject=&mode=&availability=
+2026-04-01 19:37:01 - Securing GET /api/study-circles/my
+2026-04-01 19:37:01 - Securing GET /api/resources
+2026-04-01 19:37:01 - Securing GET /api/study-circles
+2026-04-01 19:37:01 - Secured GET /api/study-circles/my
+2026-04-01 19:37:01 - Secured GET /api/tutors?subject=&mode=&availability=
+2026-04-01 19:37:01 - Secured GET /api/resources
+2026-04-01 19:37:01 - Secured GET /api/study-circles
+2026-04-01 19:37:01 - Securing GET /api/study-circles/my
+2026-04-01 19:37:01 - Securing GET /api/tutors?subject=&mode=&availability=
+2026-04-01 19:37:01 - Securing GET /api/resources
+2026-04-01 19:37:01 - Secured GET /api/study-circles/my
+2026-04-01 19:37:01 - Secured GET /api/tutors?subject=&mode=&availability=
+2026-04-01 19:37:01 - Secured GET /api/resources
+2026-04-01 19:37:01 - Securing GET /api/study-circles
+2026-04-01 19:37:01 - Securing OPTIONS /api/tutor-requests?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:01 - Securing OPTIONS /api/progress?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:01 - Securing OPTIONS /api/tutors/sessions/my?userId=69cd26779cbe03166b70fc3a&role=STUDENT
+2026-04-01 19:37:01 - Securing GET /api/tutors/sessions/my?userId=69cd26779cbe03166b70fc3a&role=STUDENT
+2026-04-01 19:37:01 - Securing GET /api/tutor-requests?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:01 - Securing GET /api/progress?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:01 - Secured GET /api/study-circles
+2026-04-01 19:37:01 - Secured GET /api/tutor-requests?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:01 - Secured GET /api/progress?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:01 - Secured GET /api/tutors/sessions/my?userId=69cd26779cbe03166b70fc3a&role=STUDENT
+2026-04-01 19:37:01 - Authorizing method invocation ReflectiveMethodInvocation: public java.util.List com.example.academic_support_portal.tutor.controller.TutorController.getMySessions(java.lang.String,java.lang.String); target is of class [com.example.academic_support_portal.tutor.controller.TutorController]
+2026-04-01 19:37:01 - Securing GET /api/progress?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:01 - Securing GET /api/tutor-requests?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:01 - Secured GET /api/tutor-requests?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:01 - Secured GET /api/progress?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:01 - Authorized method invocation ReflectiveMethodInvocation: public java.util.List com.example.academic_support_portal.tutor.controller.TutorController.getMySessions(java.lang.String,java.lang.String); target is of class [com.example.academic_support_portal.tutor.controller.TutorController]
+2026-04-01 19:37:01 - Securing GET /api/tutors/sessions/my?userId=69cd26779cbe03166b70fc3a&role=STUDENT
+2026-04-01 19:37:01 - Secured GET /api/tutors/sessions/my?userId=69cd26779cbe03166b70fc3a&role=STUDENT
+2026-04-01 19:37:01 - Authorizing method invocation ReflectiveMethodInvocation: public java.util.List com.example.academic_support_portal.tutor.controller.TutorController.getMySessions(java.lang.String,java.lang.String); target is of class [com.example.academic_support_portal.tutor.controller.TutorController]
+2026-04-01 19:37:01 - Authorized method invocation ReflectiveMethodInvocation: public java.util.List com.example.academic_support_portal.tutor.controller.TutorController.getMySessions(java.lang.String,java.lang.String); target is of class [com.example.academic_support_portal.tutor.controller.TutorController]
+2026-04-01 19:37:03 - Securing GET /api/study-rooms
+2026-04-01 19:37:03 - Securing GET /api/dashboard/environment
+2026-04-01 19:37:03 - Secured GET /api/study-rooms
+2026-04-01 19:37:03 - Secured GET /api/dashboard/environment
+2026-04-01 19:37:03 - Securing GET /api/dashboard/environment
+2026-04-01 19:37:03 - Securing GET /api/study-rooms
+2026-04-01 19:37:03 - Secured GET /api/dashboard/environment
+2026-04-01 19:37:03 - Secured GET /api/study-rooms
+2026-04-01 19:37:04 - Securing GET /api/study-circles
+2026-04-01 19:37:04 - Securing GET /api/tutors?subject=&mode=&availability=
+2026-04-01 19:37:04 - Securing GET /api/study-circles/my
+2026-04-01 19:37:04 - Securing GET /api/resources
+2026-04-01 19:37:04 - Secured GET /api/study-circles
+2026-04-01 19:37:04 - Secured GET /api/study-circles/my
+2026-04-01 19:37:04 - Secured GET /api/tutors?subject=&mode=&availability=
+2026-04-01 19:37:04 - Secured GET /api/resources
+2026-04-01 19:37:04 - Securing GET /api/study-circles/my
+2026-04-01 19:37:04 - Securing GET /api/resources
+2026-04-01 19:37:04 - Securing GET /api/tutors?subject=&mode=&availability=
+2026-04-01 19:37:04 - Secured GET /api/study-circles/my
+2026-04-01 19:37:04 - Secured GET /api/resources
+2026-04-01 19:37:04 - Secured GET /api/tutors?subject=&mode=&availability=
+2026-04-01 19:37:04 - Securing GET /api/study-circles
+2026-04-01 19:37:04 - Securing GET /api/progress?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:04 - Securing GET /api/tutors/sessions/my?userId=69cd26779cbe03166b70fc3a&role=STUDENT
+2026-04-01 19:37:04 - Securing GET /api/tutor-requests?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:04 - Secured GET /api/study-circles
+2026-04-01 19:37:04 - Secured GET /api/progress?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:04 - Secured GET /api/tutor-requests?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:04 - Secured GET /api/tutors/sessions/my?userId=69cd26779cbe03166b70fc3a&role=STUDENT
+2026-04-01 19:37:04 - Authorizing method invocation ReflectiveMethodInvocation: public java.util.List com.example.academic_support_portal.tutor.controller.TutorController.getMySessions(java.lang.String,java.lang.String); target is of class [com.example.academic_support_portal.tutor.controller.TutorController]
+2026-04-01 19:37:04 - Authorized method invocation ReflectiveMethodInvocation: public java.util.List com.example.academic_support_portal.tutor.controller.TutorController.getMySessions(java.lang.String,java.lang.String); target is of class [com.example.academic_support_portal.tutor.controller.TutorController]
+2026-04-01 19:37:04 - Securing GET /api/progress?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:04 - Securing GET /api/tutors/sessions/my?userId=69cd26779cbe03166b70fc3a&role=STUDENT
+2026-04-01 19:37:04 - Securing GET /api/tutor-requests?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:04 - Secured GET /api/tutors/sessions/my?userId=69cd26779cbe03166b70fc3a&role=STUDENT
+2026-04-01 19:37:04 - Secured GET /api/progress?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:04 - Secured GET /api/tutor-requests?studentId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:04 - Authorizing method invocation ReflectiveMethodInvocation: public java.util.List com.example.academic_support_portal.tutor.controller.TutorController.getMySessions(java.lang.String,java.lang.String); target is of class [com.example.academic_support_portal.tutor.controller.TutorController]
+2026-04-01 19:37:04 - Authorized method invocation ReflectiveMethodInvocation: public java.util.List com.example.academic_support_portal.tutor.controller.TutorController.getMySessions(java.lang.String,java.lang.String); target is of class [com.example.academic_support_portal.tutor.controller.TutorController]
+2026-04-01 19:37:29 - Securing GET /api/equipment
+2026-04-01 19:37:29 - Secured GET /api/equipment
+2026-04-01 19:37:29 - Securing GET /api/equipment
+2026-04-01 19:37:29 - Securing GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:29 - Secured GET /api/equipment
+2026-04-01 19:37:29 - Secured GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:29 - Securing GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:37:29 - Secured GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:42:32 - Securing GET /api/equipment
+2026-04-01 19:42:32 - Secured GET /api/equipment
+2026-04-01 19:42:32 - Securing GET /api/equipment
+2026-04-01 19:42:32 - Securing GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:42:32 - Secured GET /api/equipment
+2026-04-01 19:42:32 - Secured GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:42:32 - Securing GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:42:32 - Secured GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:42:34 - Securing GET /api/equipment
+2026-04-01 19:42:34 - Secured GET /api/equipment
+2026-04-01 19:42:34 - Securing GET /api/equipment
+2026-04-01 19:42:34 - Securing GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:42:34 - Secured GET /api/equipment
+2026-04-01 19:42:34 - Secured GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:42:34 - Securing GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:42:34 - Secured GET /api/equipment/bookings/my?userId=69cd26779cbe03166b70fc3a
+2026-04-01 19:43:05 - Securing OPTIONS /api/auth/login
+2026-04-01 19:43:05 - Securing POST /api/auth/login
+2026-04-01 19:43:05 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:43:05 - Secured POST /api/auth/login
+2026-04-01 19:43:05 - Login attempt for user: sahan@gmail.com
+2026-04-01 19:43:05 - Failed to find user 'sahan@gmail.com'
+2026-04-01 19:43:05 - Authentication failed for user: sahan@gmail.com - Bad credentials
+2026-04-01 19:43:05 - Login attempt with invalid credentials
+2026-04-01 19:43:17 - Securing OPTIONS /api/auth/register
+2026-04-01 19:43:17 - Securing POST /api/auth/register
+2026-04-01 19:43:17 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:43:17 - Secured POST /api/auth/register
+2026-04-01 19:43:17 - Registration attempt with existing email: student1234@gmail.com
+2026-04-01 19:43:17 - Request failed with status 409 CONFLICT: Email already exists
+2026-04-01 19:43:49 - Securing POST /api/auth/register
+2026-04-01 19:43:49 - Set SecurityContextHolder to anonymous SecurityContext
+2026-04-01 19:43:49 - Secured POST /api/auth/register
+2026-04-01 19:43:49 - User registered successfully: student1223@gmail.com
+2026-04-01 19:43:52 - Securing OPTIONS /api/equipment
+2026-04-01 19:43:52 - Securing OPTIONS /api/equipment
+2026-04-01 19:43:52 - Securing GET /api/equipment
+2026-04-01 19:43:52 - Secured GET /api/equipment
+2026-04-01 19:43:52 - Securing GET /api/equipment
+2026-04-01 19:43:52 - Securing OPTIONS /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:43:52 - Secured GET /api/equipment
+2026-04-01 19:43:52 - Securing GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:43:52 - Secured GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:43:52 - Securing GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:43:52 - Secured GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:49:06 - Securing GET /api/equipment
+2026-04-01 19:49:06 - Secured GET /api/equipment
+2026-04-01 19:49:06 - Securing GET /api/equipment
+2026-04-01 19:49:06 - Securing GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:49:06 - Secured GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:49:06 - Secured GET /api/equipment
+2026-04-01 19:49:06 - Securing GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:49:06 - Secured GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:49:08 - Securing GET /api/equipment
+2026-04-01 19:49:08 - Secured GET /api/equipment
+2026-04-01 19:49:08 - Securing GET /api/equipment
+2026-04-01 19:49:08 - Securing GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:49:08 - Secured GET /api/equipment
+2026-04-01 19:49:08 - Secured GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:49:08 - Securing GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:49:08 - Secured GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:50:19 - Securing GET /api/equipment
+2026-04-01 19:50:19 - Secured GET /api/equipment
+2026-04-01 19:50:19 - Securing GET /api/equipment
+2026-04-01 19:50:19 - Securing GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:50:20 - Secured GET /api/equipment
+2026-04-01 19:50:20 - Secured GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:50:20 - Securing GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:50:20 - Secured GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:50:41 - Securing GET /api/equipment
+2026-04-01 19:50:41 - Secured GET /api/equipment
+2026-04-01 19:50:41 - Securing GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:50:41 - Securing GET /api/equipment
+2026-04-01 19:50:41 - Secured GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:50:41 - Secured GET /api/equipment
+2026-04-01 19:50:41 - Securing GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
+2026-04-01 19:50:41 - Secured GET /api/equipment/bookings/my?userId=69cd281d9cbe03166b70fc3b
