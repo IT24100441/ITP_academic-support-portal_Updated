@@ -10,6 +10,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -55,6 +56,14 @@ public class GlobalExceptionHandler {
     Map<String, String> res = new HashMap<>();
     res.put("message", "Login failed. Please check your credentials.");
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(res);
+  }
+
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<Map<String, String>> handleAccessDenied(AccessDeniedException e) {
+    log.warn("Access denied: {}", e.getMessage());
+    Map<String, String> res = new HashMap<>();
+    res.put("message", "Access denied for this dashboard.");
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
   }
 
   @ExceptionHandler(ResponseStatusException.class)
