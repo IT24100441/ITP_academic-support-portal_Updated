@@ -676,8 +676,6 @@ public class EmailService {
     body.append("Location    : ").append(safe(location)).append("\n");
     body.append("Description : ").append(safe(description)).append("\n\n");
     body.append("Status      : Please check the portal for current status\n\n");
-    body.append("View your issue:\n");
-    body.append(viewLink).append("\n\n");
     body.append("========================================\n");
     body.append("Regards,\n");
     body.append("Campus Issue Reporter\n");
