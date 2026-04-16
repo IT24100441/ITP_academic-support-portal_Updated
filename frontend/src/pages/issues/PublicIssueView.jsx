@@ -238,9 +238,6 @@ const PublicIssueView = () => {
               )}>
                 {issue.status}
               </span>
-              <span className="px-4 py-2 bg-slate-100 rounded-full text-xs font-black uppercase tracking-widest text-slate-600">
-                Priority: {issue.priority || 'MEDIUM'}
-              </span>
               {issue.category && (
                 <span className="px-4 py-2 bg-slate-100 rounded-full text-xs font-black uppercase tracking-widest text-slate-600">
                   {issue.category}
