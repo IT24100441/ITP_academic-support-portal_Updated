@@ -1,6 +1,5 @@
 package com.example.academic_support_portal.issue.dto;
 
-import com.example.academic_support_portal.issue.model.IssuePriority;
 import com.example.academic_support_portal.issue.model.SupportingDocument;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
@@ -23,7 +22,6 @@ public class IssueCreateRequest {
   @Size(min = 10, message = "Description must be at least 10 characters")
   private String description;
 
-  // ✅ CHANGE: Replace single imageUrl with list
   private List<String> imageUrls;
 
   private String building;
@@ -34,9 +32,6 @@ public class IssueCreateRequest {
 
   private Double longitude;
 
-  private IssuePriority priority;
-  
-  // ✅ NEW: Supporting documents for academic issues
   private List<SupportingDocument> supportingDocs;
 
   private String studentEmail;  // Add this field

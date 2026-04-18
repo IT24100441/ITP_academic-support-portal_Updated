@@ -233,10 +233,10 @@ public class EmailService {
     sendStudentMail(studentEmail, subject, body);
   }
 
-  // ========== ISSUE REPORTER EMAIL METHODS (Your Code) ==========
+  // ========== ISSUE REPORTER EMAIL METHODS ==========
 
   /**
-   * Send email to department when a new issue is reported (with Reply-To set to student)
+   * Send email to department when a new issue is reported (with Reply To set to student)
    */
   public void sendNewIssueEmail(
       String departmentEmail,
@@ -245,7 +245,6 @@ public class EmailService {
       String category,
       String description,
       String location,
-      String priority,
       String createdAt,
       String reporterName,
       String reporterEmail,
@@ -264,7 +263,7 @@ public class EmailService {
     }
 
     String subject = String.format("[%s] New Issue Report: %s", category, title);
-    String body = buildNewIssueEmailBody(issueId, title, category, description, location, priority, createdAt,
+    String body = buildNewIssueEmailBody(issueId, title, category, description, location, createdAt,
         reporterName, reporterEmail, updateToken, imageUrls, supportingDocs);
 
     // Use issue mail sender with Reply-To set to the student's email
@@ -521,7 +520,6 @@ public class EmailService {
       String category,
       String description,
       String location,
-      String priority,
       String createdAt,
       String reporterName,
       String reporterEmail,
@@ -536,7 +534,6 @@ public class EmailService {
     body.append("========================================\n");
     body.append("Report ID    : ").append(issueId).append("\n");
     body.append("Category     : ").append(safe(category)).append("\n");
-    body.append("Priority     : ").append(safe(priority)).append("\n");
     body.append("Reported By  : ").append(safe(reporterName)).append("\n");
     body.append("Student Email: ").append(safe(reporterEmail)).append("\n");
     body.append("Reported At  : ").append(safe(createdAt)).append("\n");

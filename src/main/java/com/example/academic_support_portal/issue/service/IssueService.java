@@ -11,7 +11,6 @@ import com.example.academic_support_portal.issue.model.CampusIssue;
 import com.example.academic_support_portal.issue.model.SupportingDocument;
 import com.example.academic_support_portal.issue.model.UpdateToken;
 import com.example.academic_support_portal.issue.model.IssueComment;
-import com.example.academic_support_portal.issue.model.IssuePriority;
 import com.example.academic_support_portal.issue.model.IssueStatus;
 import com.example.academic_support_portal.issue.model.IssueTimelineType;
 import com.example.academic_support_portal.issue.repository.IssueCommentRepository;
@@ -57,7 +56,6 @@ public class IssueService {
     User user = getCurrentUser();
     ensureLocationProvided(request.getBuilding(), request.getLocationText(), request.getCategory());
 
-    IssuePriority priority = Optional.ofNullable(request.getPriority()).orElse(IssuePriority.MEDIUM);
     LocalDateTime now = LocalDateTime.now();
 
     CampusIssue issue = CampusIssue.builder()
@@ -69,7 +67,6 @@ public class IssueService {
         .locationText(request.getLocationText())
         .latitude(request.getLatitude())
         .longitude(request.getLongitude())
-        .priority(priority)
         .status(IssueStatus.OPEN)
         .createdByUserId(user.getId())
         .createdByName(user.getName())
@@ -111,7 +108,6 @@ public class IssueService {
           saved.getCategory(),
           saved.getDescription(),
           saved.getBuilding() != null ? saved.getBuilding() : saved.getLocationText(),
-          saved.getPriority() != null ? saved.getPriority().toString() : "MEDIUM",
           now.toString(),
           user.getName(),
           user.getEmail(),  // ← ADD THIS LINE - student's email for Reply-To
@@ -129,7 +125,6 @@ public class IssueService {
       IssueStatus status,
       String category,
       String building,
-      IssuePriority priority,
       String assignedToUserId,
       String createdByUserId,
       String keyword) {
@@ -145,9 +140,6 @@ public class IssueService {
     }
     if (StringUtils.hasText(building)) {
       criteria.add(Criteria.where("building").is(building));
-    }
-    if (priority != null) {
-      criteria.add(Criteria.where("priority").is(priority));
     }
     if (StringUtils.hasText(assignedToUserId)) {
       criteria.add(Criteria.where("assignedToUserId").is(assignedToUserId));
@@ -229,10 +221,6 @@ public class IssueService {
     }
     if (request.getLongitude() != null) {
       issue.setLongitude(request.getLongitude());
-      hasChanges = true;
-    }
-    if (request.getPriority() != null) {
-      issue.setPriority(request.getPriority());
       hasChanges = true;
     }
     if (isAdmin && request.getAdminNotes() != null) {
@@ -645,7 +633,6 @@ emailService.sendIssueUpdateEmail(
         .latitude(issue.getLatitude())
         .longitude(issue.getLongitude())
         .status(issue.getStatus())
-        .priority(issue.getPriority())
         .createdByUserId(issue.getCreatedByUserId())
         .createdByName(issue.getCreatedByName())
         .assignedToUserId(issue.getAssignedToUserId())

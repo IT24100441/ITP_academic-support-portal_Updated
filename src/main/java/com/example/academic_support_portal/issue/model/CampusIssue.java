@@ -40,8 +40,6 @@ public class CampusIssue {
 
   private IssueStatus status;
 
-  private IssuePriority priority;
-
   private String createdByUserId;
 
   private String createdByName;
