@@ -146,6 +146,10 @@ export const tutorRequestApi = {
     updateStatus: async (id, status, payload = null) => {
         const res = await api.patch(`/tutor-requests/${id}/status`, payload, { params: { status } });
         return res.data;
+    },
+    cancel: async (id) => {
+        const res = await api.delete(`/tutor-requests/${id}`);
+        return res.data;
     }
 };
 

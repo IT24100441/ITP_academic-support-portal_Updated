@@ -11,6 +11,8 @@ export default function MyRequests() {
     const [search, setSearch] = useState("");
     const [statusFilter, setStatusFilter] = useState("All");
     const [sortOrder, setSortOrder] = useState("desc");
+    const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     // Fetch only requests created by the logged-in student.
     const loadRequests = async () => {
@@ -30,13 +32,19 @@ export default function MyRequests() {
         loadRequests();
     }, []);
 
-    // Soft-cancel by switching request status to REJECTED.
+    // Cancel eligible requests owned by the current student.
     const cancelRequest = async (id) => {
+        const confirmed = window.confirm("Are you sure you want to cancel this request?");
+        if (!confirmed) return;
+
         try {
-            await tutorRequestApi.updateStatus(id, "REJECTED");
-            loadRequests();
+            setSuccessMessage("");
+            setErrorMessage("");
+            await tutorRequestApi.cancel(id);
+            setSuccessMessage("Request cancelled successfully");
+            await loadRequests();
         } catch (e) {
-            alert("Failed to cancel request.");
+            setErrorMessage(e?.response?.data?.message || "Failed to cancel request.");
         }
     };
 
@@ -82,6 +90,17 @@ export default function MyRequests() {
                 </div>
             </div>
 
+            {successMessage && (
+                <div className="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-700">
+                    {successMessage}
+                </div>
+            )}
+            {errorMessage && (
+                <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-700">
+                    {errorMessage}
+                </div>
+            )}
+
             <div className="panel filters-modern" style={{ display: "flex", gap: 10, marginTop: 20 }}>
                 <input
                     type="text"
@@ -120,8 +139,13 @@ export default function MyRequests() {
                                 <div>{r.preferredDay}</div>
                                 <div><span className={`badge ${r.status.toLowerCase()}`}>{r.status}</span></div>
                                 <div>
-                                    {r.status === "PENDING" && (
-                                        <button className="btn-outline small" onClick={() => cancelRequest(r.id)}>Cancel</button>
+                                    {(r.status === "PENDING" || r.status === "ACCEPTED") && (
+                                        <button
+                                            className="bg-red-500 hover:bg-red-600 text-white text-xs font-semibold rounded px-3 py-1"
+                                            onClick={() => cancelRequest(r.id)}
+                                        >
+                                            Cancel
+                                        </button>
                                     )}
                                 </div>
                             </div>

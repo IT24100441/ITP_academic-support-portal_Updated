@@ -74,7 +74,8 @@ public class TutorRequestController {
 
   // Administrative delete support for cleanup/manual moderation.
   @DeleteMapping("/{id}")
-  public void delete(@PathVariable String id) {
-    service.delete(id);
+  @PreAuthorize("isAuthenticated()")
+  public TutorRequestActionResponse delete(@PathVariable String id) {
+    return service.cancelRequest(id);
   }
 }
