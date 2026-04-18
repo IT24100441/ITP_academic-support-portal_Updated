@@ -34,14 +34,14 @@ export default function MyRequests() {
 
     // Cancel eligible requests owned by the current student.
     const cancelRequest = async (id) => {
-        const confirmed = window.confirm("Are you sure you want to cancel this request?");
+        const confirmed = window.confirm("Are you sure you want to cancel this tutor request?");
         if (!confirmed) return;
 
         try {
             setSuccessMessage("");
             setErrorMessage("");
             await tutorRequestApi.cancel(id);
-            setSuccessMessage("Request cancelled successfully");
+            setSuccessMessage("Request cancelled successfully.");
             await loadRequests();
         } catch (e) {
             setErrorMessage(e?.response?.data?.message || "Failed to cancel request.");
@@ -67,7 +67,7 @@ export default function MyRequests() {
         return data;
     }, [requests, search, statusFilter, sortOrder]);
 
-    const pendingCount = requests.filter((r) => r.status === "PENDING").length;
+    const pendingCount = requests.filter((r) => r.status === "PENDING" || r.status === "REQUESTED").length;
 
     return (
         <div>
@@ -112,9 +112,12 @@ export default function MyRequests() {
                 />
                 <select className="input" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
                     <option>All</option>
+                    <option>REQUESTED</option>
                     <option>PENDING</option>
                     <option>ACCEPTED</option>
                     <option>REJECTED</option>
+                    <option>CANCELLED</option>
+                    <option>COMPLETED</option>
                 </select>
                 <select className="input" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
                     <option value="desc">Newest First</option>
@@ -139,12 +142,12 @@ export default function MyRequests() {
                                 <div>{r.preferredDay}</div>
                                 <div><span className={`badge ${r.status.toLowerCase()}`}>{r.status}</span></div>
                                 <div>
-                                    {(r.status === "PENDING" || r.status === "ACCEPTED") && (
+                                    {(r.status === "REQUESTED" || r.status === "ACCEPTED") && (
                                         <button
                                             className="bg-red-500 hover:bg-red-600 text-white text-xs font-semibold rounded px-3 py-1"
                                             onClick={() => cancelRequest(r.id)}
                                         >
-                                            Cancel
+                                            Cancel Request
                                         </button>
                                     )}
                                 </div>

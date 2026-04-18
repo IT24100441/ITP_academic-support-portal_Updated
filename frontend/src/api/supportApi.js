@@ -148,7 +148,7 @@ export const tutorRequestApi = {
         return res.data;
     },
     cancel: async (id) => {
-        const res = await api.delete(`/tutor-requests/${id}`);
+        const res = await api.put(`/tutor-requests/${id}/cancel`);
         return res.data;
     }
 };

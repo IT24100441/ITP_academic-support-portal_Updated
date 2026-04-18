@@ -279,13 +279,19 @@ public class TutorRequestService {
     }
 
     String currentStatus = req.getStatus() == null ? "" : req.getStatus().trim().toUpperCase(Locale.ROOT);
-    if (!("PENDING".equals(currentStatus) || "ACCEPTED".equals(currentStatus))) {
-      throw new ResponseStatusException(BAD_REQUEST, "Only pending or accepted requests can be cancelled");
+    if (!("REQUESTED".equals(currentStatus) || "PENDING".equals(currentStatus) || "ACCEPTED".equals(currentStatus))) {
+      throw new ResponseStatusException(BAD_REQUEST, "Only requested or accepted requests can be cancelled");
     }
 
     req.setStatus("CANCELLED");
     req.setUpdatedAt(Instant.now().toString());
     TutorRequest saved = repository.save(req);
+
+    try {
+      emailService.sendTutorRequestCancelledEmail(saved);
+    } catch (Exception ex) {
+      log.error("Failed to send cancellation email for tutor request {}", saved.getId(), ex);
+    }
 
     return TutorRequestActionResponse.builder()
         .request(saved)

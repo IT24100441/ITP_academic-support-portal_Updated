@@ -58,6 +58,39 @@ public class EmailService {
     sendStudentMail(request.getStudentEmail(), subject, body);
   }
 
+  public void sendTutorRequestCancelledEmail(TutorRequest request) {
+    if (request == null) {
+      log.warn("Tutor request is null. Skipping cancellation email.");
+      return;
+    }
+    if (!mailEnabled) {
+      log.info("Mail sending is disabled. Skipping cancellation email. tutorEmail={} requestId={}", request.getTutorEmail(), request.getId());
+      return;
+    }
+
+    String tutorEmail = safeEmail(request.getTutorEmail());
+    if (!StringUtils.hasText(tutorEmail)) {
+      log.warn("Tutor email missing. Skipping cancellation email. requestId={}", request.getId());
+      return;
+    }
+
+    String dateTime = StringUtils.hasText(request.getSessionDateTime())
+        ? request.getSessionDateTime()
+        : safe(request.getPreferredDay()) + " " + safe(request.getPreferredTimeFrom()) + " - " + safe(request.getPreferredTimeTo());
+
+    String subject = "Tutor Request Cancelled by Student";
+    String body = "Hello " + safe(request.getTutorName()) + ",\n\n"
+        + "The following tutor request has been cancelled by the student.\n\n"
+        + "Student: " + safe(request.getStudentName()) + "\n"
+        + "Subject: " + safe(request.getSubject()) + "\n"
+        + "Date & Time: " + dateTime + "\n\n"
+        + "Please log in to the system for updated request information.\n\n"
+        + "Best regards,\n"
+        + "Smart Campus Hub";
+
+    sendTutorMail(tutorEmail, subject, body);
+  }
+
   public void notifyTutorOfNewRequest(TutoringSession session) {
     if (session == null) {
       log.warn("Session is null. Skipping tutor notification.");
