@@ -235,10 +235,7 @@ const IssuesPage = () => {
 
   const [filters, setFilters] = useState({
     status: '',
-    category: '',
-    // building: '',
-    // priority: '',
-    // keyword: ''
+    category: ''
   });
 
   const [formData, setFormData] = useState({
@@ -745,7 +742,7 @@ const IssuesPage = () => {
       submissionData.locationText = `Academic issue: ${finalTitle}`;
     }
 
-    // ✅ ADD THIS FOR DEBUGGING
+    //FOR DEBUGGING
     console.log('Submitting form data:', submissionData);
     console.log('Category:', formData.category);
     console.log('Final title:', finalTitle);
@@ -818,7 +815,6 @@ const IssuesPage = () => {
   const handleAssign = async (userId) => {
     if (!selectedIssue) return;
     try {
-      // await issueApi.assign(selectedIssue.id, { assignedToUserId: userId });
       await loadIssueDetails(selectedIssue.id);
     } catch (err) {
       console.error('Assign failed:', err);
@@ -857,7 +853,6 @@ const IssuesPage = () => {
 
     // Set academic fields if category is ACADEMIC
     if (category === 'ACADEMIC') {
-      // For academic, the title might be from academicIssueCategory
       let academicCat = '';
       let customTitle = '';
 
@@ -924,7 +919,6 @@ const IssuesPage = () => {
     if (!editData) return;
 
     // Validate before submission
-    // Validate before submission - include floor and locationText
     const validationPayload = {
       ...editData,
       category: editData.category,
@@ -1148,14 +1142,14 @@ const IssuesPage = () => {
                 type="text"
                 placeholder="Search by issue name or locations..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}  // ✅ Just update searchTerm, no API call
+                onChange={(e) => setSearchTerm(e.target.value)}  //  Just update searchTerm, no API call
                 className="w-full pl-16 pr-6 py-5 bg-white border border-slate-100 rounded-[32px] outline-none focus:ring-4 focus:ring-primary/10 transition-all font-medium text-slate-700 shadow-sm"
               />
             </div>
             <select
               value={filters.status}
               onChange={(e) => {
-                setFilters({ ...filters, status: e.target.value });  // ✅ Just update state, no API call
+                setFilters({ ...filters, status: e.target.value });  // Just update state, no API call
               }}
               className="px-6 py-5 bg-white border border-slate-100 rounded-[32px] font-bold text-slate-600"
             >
@@ -1167,7 +1161,7 @@ const IssuesPage = () => {
             <select
               value={filters.category}
               onChange={(e) => {
-                setFilters({ ...filters, category: e.target.value });  // ✅ Just update state, no API call
+                setFilters({ ...filters, category: e.target.value });  //  Just update state, no API call
               }}
               className="px-6 py-5 bg-white border border-slate-100 rounded-[32px] font-bold text-slate-600"
             >
@@ -1567,7 +1561,6 @@ const IssuesPage = () => {
 
                       if (validFiles.length > 0) {
                         setImageFiles(prev => [...prev, ...validFiles]);
-                        // ✅ FIXED: Generate previews properly
                         const newPreviews = [];
                         validFiles.forEach(file => {
                           const reader = new FileReader();
@@ -1770,7 +1763,7 @@ const IssuesPage = () => {
                 </div>
               )}
 
-              {/* ✅ NEW: Display supporting documents (PDFs and images) */}
+              {/*Display supporting documents (PDFs and images) */}
               {selectedIssue.supportingDocs && selectedIssue.supportingDocs.length > 0 && (
                 <div className="space-y-3">
                   <h3 className="text-lg font-bold text-slate-900">Supporting Documents</h3>
@@ -1928,7 +1921,6 @@ const IssuesPage = () => {
                           {errors.faculty && <p className="text-xs text-red-500 mt-1 ml-1">{errors.faculty}</p>}
                         </div>
 
-                        {/* Module Code Input */}
                         <div>
                           <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Module Code (Optional)</label>
                           <input
