@@ -6,6 +6,7 @@ import com.example.academic_support_portal.study_spot.dto.CreateBookingRequest;
 import com.example.academic_support_portal.study_spot.dto.RoomAvailabilityResponse;
 import com.example.academic_support_portal.study_spot.dto.StudyRoomResponse;
 import com.example.academic_support_portal.study_spot.dto.StudyRoomStatusSummaryResponse;
+import com.example.academic_support_portal.study_spot.dto.UpdateBookingRequest;
 import com.example.academic_support_portal.study_spot.exception.ReservationConflictException;
 import com.example.academic_support_portal.study_spot.model.BookingSource;
 import com.example.academic_support_portal.study_spot.model.StudyReservation;
@@ -172,6 +173,55 @@ public class StudySpotService {
     bookingRepository.save(booking);
   }
 
+  @Transactional
+  public BookingResponse updateBooking(String bookingId, UpdateBookingRequest request, User user) {
+    StudyReservation booking = bookingRepository.findById(bookingId)
+        .orElseThrow(() -> new NoSuchElementException("Booking not found"));
+
+    boolean owner = booking.getStudentId().equals(user.getId());
+    if (!owner && !isAdmin(user)) {
+      throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Unauthorized to edit this booking.");
+    }
+
+    refreshStatus(booking);
+    validateUpdateRequest(booking, request);
+
+    boolean roomConflict = bookingRepository
+        .findByRoomIdAndBookingDateAndStatusInAndStartTimeLessThanAndEndTimeGreaterThan(
+            booking.getRoomId(),
+            request.getBookingDate(),
+            BLOCKING_STATUSES,
+            request.getEndTime(),
+            request.getStartTime())
+        .stream()
+        .anyMatch(existing -> !existing.getId().equals(bookingId));
+
+    if (roomConflict) {
+      throw new ReservationConflictException("Room already booked for selected time range.");
+    }
+
+    boolean studentConflict = bookingRepository
+        .findByStudentIdAndBookingDateAndStatusInAndStartTimeLessThanAndEndTimeGreaterThan(
+            booking.getStudentId(),
+            request.getBookingDate(),
+            BLOCKING_STATUSES,
+            request.getEndTime(),
+            request.getStartTime())
+        .stream()
+        .anyMatch(existing -> !existing.getId().equals(bookingId));
+
+    if (studentConflict) {
+      throw new ReservationConflictException("You already have another booking during this time.");
+    }
+
+    booking.setBookingDate(request.getBookingDate());
+    booking.setStartTime(request.getStartTime());
+    booking.setEndTime(request.getEndTime());
+    booking.setUpdatedAt(LocalDateTime.now());
+
+    return toBookingResponse(bookingRepository.save(booking));
+  }
+
   @Transactional(readOnly = true)
   public RoomAvailabilityResponse getRoomAvailability(String roomId, LocalDate date) {
     StudyRoom room = studyRoomRepository.findById(roomId)
@@ -269,6 +319,38 @@ public class StudySpotService {
 
     if (studentConflict) {
       throw new ReservationConflictException("You already have another booking during this time.");
+    }
+  }
+
+  private void validateUpdateRequest(StudyReservation booking, UpdateBookingRequest request) {
+    LocalDate today = LocalDate.now();
+    LocalDateTime now = LocalDateTime.now();
+    LocalDateTime existingStart = LocalDateTime.of(booking.getBookingDate(), booking.getStartTime());
+
+    if (booking.getStatus() != StudyReservationStatus.BOOKED) {
+      throw new IllegalArgumentException("Only upcoming bookings can be edited.");
+    }
+    if (booking.getBookingDate().isBefore(today)) {
+      throw new IllegalArgumentException("Past bookings cannot be edited.");
+    }
+    if (!existingStart.isAfter(now)) {
+      throw new IllegalArgumentException("Booking already started and cannot be edited.");
+    }
+    if (request.getBookingDate().isBefore(today)) {
+      throw new IllegalArgumentException("Booking date cannot be in the past.");
+    }
+    if (!request.getEndTime().isAfter(request.getStartTime())) {
+      throw new IllegalArgumentException("End time must be after start time.");
+    }
+
+    long minutes = Duration.between(request.getStartTime(), request.getEndTime()).toMinutes();
+    if (minutes > 4 * 60) {
+      throw new IllegalArgumentException("Booking duration cannot exceed 4 hours.");
+    }
+
+    LocalDateTime updatedStart = LocalDateTime.of(request.getBookingDate(), request.getStartTime());
+    if (!updatedStart.isAfter(now)) {
+      throw new IllegalArgumentException("Updated booking start time must be in the future.");
     }
   }
 

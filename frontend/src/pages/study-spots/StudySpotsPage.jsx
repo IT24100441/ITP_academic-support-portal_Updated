@@ -41,6 +41,10 @@ const StudySpotsPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [availability, setAvailability] = useState(null);
   const [availabilityLoading, setAvailabilityLoading] = useState(false);
+  const [editingBooking, setEditingBooking] = useState(null);
+  const [editForm, setEditForm] = useState({ bookingDate: today(), startTime: '', endTime: '' });
+  const [editSubmitting, setEditSubmitting] = useState(false);
+  const [editError, setEditError] = useState('');
 
   const loadRooms = async (showLoader = false) => {
     if (showLoader) setLoadingRooms(true);
@@ -180,6 +184,61 @@ const StudySpotsPage = () => {
       loadRooms(false);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to cancel booking.');
+    }
+  };
+
+  const openEditModal = (booking) => {
+    setEditingBooking(booking);
+    setEditForm({
+      bookingDate: booking.bookingDate,
+      startTime: booking.startTime,
+      endTime: booking.endTime
+    });
+    setEditError('');
+    setError('');
+    setSuccess('');
+  };
+
+  const closeEditModal = () => {
+    setEditingBooking(null);
+    setEditError('');
+  };
+
+  const saveEditedBooking = async () => {
+    if (!editingBooking) return;
+    setEditError('');
+    setError('');
+    setSuccess('');
+
+    const todayDate = today();
+    if (!editForm.bookingDate || !editForm.startTime || !editForm.endTime) {
+      setEditError('Please fill date, start time, and end time.');
+      return;
+    }
+    if (editForm.bookingDate < todayDate) {
+      setEditError('Booking date cannot be in the past.');
+      return;
+    }
+    if (editForm.startTime >= editForm.endTime) {
+      setEditError('Start time must be before end time.');
+      return;
+    }
+
+    setEditSubmitting(true);
+    try {
+      await studySpotApi.updateBooking(editingBooking.id, {
+        bookingDate: editForm.bookingDate,
+        startTime: editForm.startTime,
+        endTime: editForm.endTime
+      });
+      setSuccess('Booking updated successfully.');
+      closeEditModal();
+      await loadMyBookings();
+      loadRooms(false);
+    } catch (err) {
+      setEditError(err.response?.data?.message || 'Failed to update booking.');
+    } finally {
+      setEditSubmitting(false);
     }
   };
 
@@ -376,12 +435,20 @@ const StudySpotsPage = () => {
                       </td>
                       <td className="px-3 py-3">
                         {booking.cancellable ? (
-                          <button
-                            onClick={() => cancelBooking(booking.id)}
-                            className="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-100"
-                          >
-                            Cancel
-                          </button>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => openEditModal(booking)}
+                              className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100"
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => cancelBooking(booking.id)}
+                              className="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-100"
+                            >
+                              Cancel
+                            </button>
+                          </div>
                         ) : (
                           <span className="text-xs text-slate-400">-</span>
                         )}
@@ -473,6 +540,71 @@ const StudySpotsPage = () => {
                 className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-400"
               >
                 {submitting ? 'Booking...' : 'Confirm Booking'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {editingBooking && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4">
+          <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+            <div className="mb-4 flex items-start justify-between">
+              <div>
+                <h2 className="text-xl font-bold text-slate-900">Edit Booking</h2>
+                <p className="text-sm text-slate-500">{editingBooking.roomName}</p>
+              </div>
+              <button onClick={closeEditModal} className="rounded-lg p-1 text-slate-500 hover:bg-slate-100">
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <label className="text-sm text-slate-600">
+                <span className="mb-1 block font-medium">Date</span>
+                <input
+                  type="date"
+                  min={today()}
+                  value={editForm.bookingDate}
+                  onChange={(e) => setEditForm((prev) => ({ ...prev, bookingDate: e.target.value }))}
+                  className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-primary"
+                />
+              </label>
+              <label className="text-sm text-slate-600">
+                <span className="mb-1 block font-medium">Start Time</span>
+                <input
+                  type="time"
+                  value={editForm.startTime}
+                  onChange={(e) => setEditForm((prev) => ({ ...prev, startTime: e.target.value }))}
+                  className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-primary"
+                />
+              </label>
+              <label className="text-sm text-slate-600">
+                <span className="mb-1 block font-medium">End Time</span>
+                <input
+                  type="time"
+                  value={editForm.endTime}
+                  onChange={(e) => setEditForm((prev) => ({ ...prev, endTime: e.target.value }))}
+                  className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-primary"
+                />
+              </label>
+            </div>
+
+            {editError && <div className="mt-4 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{editError}</div>}
+
+            <div className="mt-5 flex justify-end gap-3">
+              <button
+                onClick={closeEditModal}
+                className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600"
+              >
+                Cancel
+              </button>
+              <button
+                disabled={editSubmitting}
+                onClick={saveEditedBooking}
+                className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-400"
+              >
+                {editSubmitting ? 'Saving...' : 'Save'}
               </button>
             </div>
           </div>

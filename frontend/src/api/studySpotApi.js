@@ -33,6 +33,10 @@ export const studySpotApi = {
     const res = await api.get(`/bookings/${id}`);
     return res.data;
   },
+  updateBooking: async (bookingId, payload) => {
+    const res = await api.put(`/bookings/${bookingId}`, payload);
+    return res.data;
+  },
   cancelBooking: async (bookingId) => {
     const res = await api.delete(`/bookings/${bookingId}`);
     return res.data;
