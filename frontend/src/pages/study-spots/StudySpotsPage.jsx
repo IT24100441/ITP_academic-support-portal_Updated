@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { CalendarDays, Clock3, MapPin, Search, Thermometer, Users, X, Smartphone } from 'lucide-react';
+import QRCode from 'react-qr-code';
 import { studySpotApi } from '../../api/studySpotApi';
-import campusMapQR from '../../assets/images/campus-map-qr.png';
+
+const campusMapUrl = 'https://static.sliit.lk/vt/index.html';
 
 const STATUS_OPTIONS = ['', 'AVAILABLE', 'ACTIVE', 'NEARLY_FULL', 'FULL', 'MAINTENANCE'];
 
@@ -39,7 +41,6 @@ const StudySpotsPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [availability, setAvailability] = useState(null);
   const [availabilityLoading, setAvailabilityLoading] = useState(false);
-  const [showQRModal, setShowQRModal] = useState(false);
 
   const loadRooms = async (showLoader = false) => {
     if (showLoader) setLoadingRooms(true);
@@ -316,25 +317,29 @@ const StudySpotsPage = () => {
               <p className="text-xs text-blue-700 mb-4">Access the campus map with a quick scan</p>
 
               <div className="flex justify-center mb-4">
-                <div className="rounded-xl border-2 border-blue-200 bg-white p-3 cursor-pointer hover:shadow-lg transition-shadow" onClick={() => setShowQRModal(true)}>
-                  <img
-                    src={campusMapQR}
-                    alt="Campus map QR code"
-                    className="w-32 h-32 object-contain"
-                  />
-                </div>
+                <a
+                  href={campusMapUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="rounded-xl border-2 border-blue-200 bg-white p-3 cursor-pointer hover:shadow-lg transition-shadow"
+                  aria-label="Open campus map"
+                >
+                  <QRCode value={campusMapUrl} size={128} className="block w-32 h-32" />
+                </a>
               </div>
 
               <p className="text-center text-xs text-blue-600 mb-4 px-2">
                 Scan to view campus map
               </p>
 
-              <button
-                onClick={() => setShowQRModal(true)}
-                className="w-full rounded-xl border border-blue-300 bg-white px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-100 transition"
+              <a
+                href={campusMapUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="block w-full rounded-xl border border-blue-300 bg-white px-4 py-2 text-center text-sm font-semibold text-blue-700 hover:bg-blue-100 transition"
               >
                 View Full QR
-              </button>
+              </a>
             </div>
           </div>
         </>
@@ -437,30 +442,20 @@ const StudySpotsPage = () => {
             <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-3">
               <h3 className="mb-2 text-sm font-semibold text-slate-700">Availability ({form.bookingDate})</h3>
               {availabilityLoading ? (
-                <p className="text-xs text-slate-500">Loading availability...</p>
+                <p className="text-sm text-slate-500">Checking availability...</p>
               ) : availability ? (
-                <div className="space-y-2 text-xs text-slate-600">
-                  <div>
-                    <p className="mb-1 font-semibold">Booked slots</p>
-                    {availability.bookedSlots?.length ? (
-                      <div className="flex flex-wrap gap-2">
-                        {availability.bookedSlots.map((slot, idx) => (
-                          <span key={`${slot.startTime}-${idx}`} className="rounded-full border border-red-200 bg-red-50 px-2 py-1 text-red-700">
-                            <Clock3 size={12} className="mr-1 inline" />{slot.startTime} - {slot.endTime}
-                          </span>
-                        ))}
-                      </div>
-                    ) : <p className="text-emerald-700">No bookings yet for this date.</p>}
-                  </div>
-                  <div>
-                    <p className="mb-1 font-semibold">Available windows</p>
-                    <div className="flex flex-wrap gap-2">
-                      {availability.availableWindows?.map((slot, idx) => (
-                        <span key={`${slot.startTime}-${idx}`} className="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-1 text-emerald-700">
+                <div className="space-y-2 text-sm text-slate-600">
+                  <p>Available Slots:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {availability.availableSlots?.length ? (
+                      availability.availableSlots.map((slot) => (
+                        <span key={`${slot.startTime}-${slot.endTime}`} className="rounded-full border border-emerald-200 bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700">
                           <CalendarDays size={12} className="mr-1 inline" />{slot.startTime} - {slot.endTime}
                         </span>
-                      ))}
-                    </div>
+                      ))
+                    ) : (
+                      <span className="text-xs text-slate-400">No available slots.</span>
+                    )}
                   </div>
                 </div>
               ) : (
@@ -478,45 +473,6 @@ const StudySpotsPage = () => {
                 className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-400"
               >
                 {submitting ? 'Booking...' : 'Confirm Booking'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showQRModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
-            <div className="mb-4 flex items-start justify-between">
-              <div>
-                <h2 className="text-xl font-bold text-slate-900">Campus Map QR Code</h2>
-                <p className="text-sm text-slate-500">Scan with your phone camera</p>
-              </div>
-              <button onClick={() => setShowQRModal(false)} className="rounded-lg p-1 text-slate-500 hover:bg-slate-100">
-                <X size={18} />
-              </button>
-            </div>
-
-            <div className="flex justify-center mb-4">
-              <div className="rounded-xl bg-white p-4 border border-slate-200">
-                <img
-                  src={campusMapQR}
-                  alt="Campus map QR code"
-                  className="w-64 h-64 object-contain"
-                />
-              </div>
-            </div>
-
-            <p className="text-center text-sm text-slate-600 mb-4">
-              Use your phone camera to scan this QR code and access the campus map
-            </p>
-
-            <div className="flex justify-end gap-3">
-              <button
-                onClick={() => setShowQRModal(false)}
-                className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50"
-              >
-                Close
               </button>
             </div>
           </div>
