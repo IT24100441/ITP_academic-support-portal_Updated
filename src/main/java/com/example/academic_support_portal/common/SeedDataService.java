@@ -552,7 +552,7 @@ public class SeedDataService implements CommandLineRunner {
                                                         .description("AC in 2nd floor silent zone is leaking.")
                                                         .building("Library")
                                                         .locationText("Library 2nd floor")
-                                                        .priority(IssuePriority.MEDIUM)
+                                                        // .priority(IssuePriority.MEDIUM)
                                                         .status(IssueStatus.OPEN)
                                                         .createdByUserId(null)
                                                         .createdByName("System Seed")

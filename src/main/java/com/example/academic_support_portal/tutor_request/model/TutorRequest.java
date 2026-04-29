@@ -53,7 +53,7 @@ public class TutorRequest {
   private String preferredTimeTo;
 
   // Request lifecycle status used in student/tutor dashboards.
-  private String status; // PENDING, ACCEPTED, REJECTED, COMPLETED, CANCELLED
+  private String status; // PENDING, ACCEPTED, REJECTED
 
   private String sessionDateTime;
   private String joinLink;

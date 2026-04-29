@@ -139,6 +139,7 @@ const statusBadgeStyles = {
   REJECTED: 'bg-slate-100 text-slate-500 border-slate-200'
 };
 
+// converts a raw date value into a readable string
 const formatDate = (value) => {
   if (!value) return '-';
   const date = new Date(value);
@@ -146,6 +147,7 @@ const formatDate = (value) => {
   return date.toLocaleString();
 };
 
+// Issue card component
 const IssueCard = ({ issue, onClick }) => (
   <div
     onClick={onClick}
@@ -166,7 +168,7 @@ const IssueCard = ({ issue, onClick }) => (
       {issue.description}
     </p>
 
-    {/* ✅ NEW: Show image thumbnails in card */}
+    {/*Show image thumbnails in card */}
     {issue.imageUrls && issue.imageUrls.length > 0 && (
       <div className="flex gap-1 mb-3">
         {issue.imageUrls.slice(0, 3).map((img, idx) => (
@@ -186,7 +188,7 @@ const IssueCard = ({ issue, onClick }) => (
       </div>
     )}
 
-    {/* ✅ NEW: Show document indicator */}
+    {/*Show document indicator */}
     {issue.supportingDocs && issue.supportingDocs.length > 0 && (
       <div className="flex items-center gap-1 mb-3 text-xs text-slate-500">
         <FileText size={12} />
@@ -209,6 +211,7 @@ const IssueCard = ({ issue, onClick }) => (
   </div>
 );
 
+// issue page
 const IssuesPage = () => {
   const { user } = useAuth();
   const isAdmin = useMemo(() => {
@@ -232,10 +235,7 @@ const IssuesPage = () => {
 
   const [filters, setFilters] = useState({
     status: '',
-    category: '',
-    // building: '',
-    // priority: '',
-    // keyword: ''
+    category: ''
   });
 
   const [formData, setFormData] = useState({
@@ -676,6 +676,7 @@ const IssuesPage = () => {
     return nextErrors;
   };
 
+  // create/report issue function
   const handleReportIssue = async () => {
     setErrors({});
 
@@ -741,7 +742,7 @@ const IssuesPage = () => {
       submissionData.locationText = `Academic issue: ${finalTitle}`;
     }
 
-    // ✅ ADD THIS FOR DEBUGGING
+    //FOR DEBUGGING
     console.log('Submitting form data:', submissionData);
     console.log('Category:', formData.category);
     console.log('Final title:', finalTitle);
@@ -814,7 +815,6 @@ const IssuesPage = () => {
   const handleAssign = async (userId) => {
     if (!selectedIssue) return;
     try {
-      // await issueApi.assign(selectedIssue.id, { assignedToUserId: userId });
       await loadIssueDetails(selectedIssue.id);
     } catch (err) {
       console.error('Assign failed:', err);
@@ -853,7 +853,6 @@ const IssuesPage = () => {
 
     // Set academic fields if category is ACADEMIC
     if (category === 'ACADEMIC') {
-      // For academic, the title might be from academicIssueCategory
       let academicCat = '';
       let customTitle = '';
 
@@ -920,7 +919,6 @@ const IssuesPage = () => {
     if (!editData) return;
 
     // Validate before submission
-    // Validate before submission - include floor and locationText
     const validationPayload = {
       ...editData,
       category: editData.category,
@@ -1099,6 +1097,7 @@ const IssuesPage = () => {
             Report New Issue <AlertCircle size={18} />
           </button>
         )}
+
         {(view === 'report' || view === 'detail') && (
           <button
             onClick={() => {
@@ -1143,14 +1142,14 @@ const IssuesPage = () => {
                 type="text"
                 placeholder="Search by issue name or locations..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}  // ✅ Just update searchTerm, no API call
+                onChange={(e) => setSearchTerm(e.target.value)}  //  Just update searchTerm, no API call
                 className="w-full pl-16 pr-6 py-5 bg-white border border-slate-100 rounded-[32px] outline-none focus:ring-4 focus:ring-primary/10 transition-all font-medium text-slate-700 shadow-sm"
               />
             </div>
             <select
               value={filters.status}
               onChange={(e) => {
-                setFilters({ ...filters, status: e.target.value });  // ✅ Just update state, no API call
+                setFilters({ ...filters, status: e.target.value });  // Just update state, no API call
               }}
               className="px-6 py-5 bg-white border border-slate-100 rounded-[32px] font-bold text-slate-600"
             >
@@ -1162,7 +1161,7 @@ const IssuesPage = () => {
             <select
               value={filters.category}
               onChange={(e) => {
-                setFilters({ ...filters, category: e.target.value });  // ✅ Just update state, no API call
+                setFilters({ ...filters, category: e.target.value });  //  Just update state, no API call
               }}
               className="px-6 py-5 bg-white border border-slate-100 rounded-[32px] font-bold text-slate-600"
             >
@@ -1464,7 +1463,7 @@ const IssuesPage = () => {
                   <div className="field">
                     <div className="w-full px-6 py-4 bg-amber-50 border border-amber-200 rounded-2xl">
                       <p className="text-amber-700 font-medium text-sm">
-                        📍 This floor has no specific locations. Please describe the exact location in the description field above.
+                        📍 This floor has no specific locations. Please describe the exact location in the description field below.
                       </p>
                     </div>
                   </div>
@@ -1562,7 +1561,6 @@ const IssuesPage = () => {
 
                       if (validFiles.length > 0) {
                         setImageFiles(prev => [...prev, ...validFiles]);
-                        // ✅ FIXED: Generate previews properly
                         const newPreviews = [];
                         validFiles.forEach(file => {
                           const reader = new FileReader();
@@ -1765,7 +1763,7 @@ const IssuesPage = () => {
                 </div>
               )}
 
-              {/* ✅ NEW: Display supporting documents (PDFs and images) */}
+              {/*Display supporting documents (PDFs and images) */}
               {selectedIssue.supportingDocs && selectedIssue.supportingDocs.length > 0 && (
                 <div className="space-y-3">
                   <h3 className="text-lg font-bold text-slate-900">Supporting Documents</h3>
@@ -1923,7 +1921,6 @@ const IssuesPage = () => {
                           {errors.faculty && <p className="text-xs text-red-500 mt-1 ml-1">{errors.faculty}</p>}
                         </div>
 
-                        {/* Module Code Input */}
                         <div>
                           <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Module Code (Optional)</label>
                           <input
@@ -2063,7 +2060,7 @@ const IssuesPage = () => {
                           <div className="md:col-span-2">
                             <div className="w-full px-6 py-4 bg-amber-50 border border-amber-200 rounded-2xl">
                               <p className="text-amber-700 font-medium text-sm">
-                                📍 This floor has no specific locations. Please describe the exact location in the description field above.
+                                📍 This floor has no specific locations. Please describe the exact location in the description field below.
                               </p>
                             </div>
                           </div>

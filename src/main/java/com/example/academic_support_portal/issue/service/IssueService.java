@@ -8,16 +8,20 @@ import com.example.academic_support_portal.issue.dto.IssueResponse;
 import com.example.academic_support_portal.issue.dto.IssueStatusUpdateRequest;
 import com.example.academic_support_portal.issue.dto.IssueUpdateRequest;
 import com.example.academic_support_portal.issue.model.CampusIssue;
+import com.example.academic_support_portal.issue.model.SupportingDocument;
+import com.example.academic_support_portal.issue.model.UpdateToken;
 import com.example.academic_support_portal.issue.model.IssueComment;
-import com.example.academic_support_portal.issue.model.IssuePriority;
 import com.example.academic_support_portal.issue.model.IssueStatus;
 import com.example.academic_support_portal.issue.model.IssueTimelineType;
 import com.example.academic_support_portal.issue.repository.IssueCommentRepository;
 import com.example.academic_support_portal.issue.repository.IssueRepository;
+import com.example.academic_support_portal.issue.repository.UpdateTokenRepository;
 import com.example.academic_support_portal.user.model.Role;
 import com.example.academic_support_portal.user.model.User;
 import com.example.academic_support_portal.user.repository.UserRepository;
+import com.example.academic_support_portal.notification.EmailService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -30,38 +34,44 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class IssueService {
 
   private final IssueRepository issueRepository;
   private final IssueCommentRepository commentRepository;
   private final UserRepository userRepository;
   private final MongoTemplate mongoTemplate;
+  private final EmailService emailService;
+  private final UpdateTokenRepository updateTokenRepository;
 
   public IssueResponse createIssue(IssueCreateRequest request) {
     User user = getCurrentUser();
-    ensureLocationProvided(request.getBuilding(), request.getLocationText());
+    ensureLocationProvided(request.getBuilding(), request.getLocationText(), request.getCategory());
 
-    IssuePriority priority = Optional.ofNullable(request.getPriority()).orElse(IssuePriority.MEDIUM);
     LocalDateTime now = LocalDateTime.now();
 
     CampusIssue issue = CampusIssue.builder()
         .title(request.getTitle())
         .category(request.getCategory())
         .description(request.getDescription())
-        .imageUrl(request.getImageUrl())
+        .imageUrls(request.getImageUrls() != null ? request.getImageUrls() : new ArrayList<>())
         .building(request.getBuilding())
         .locationText(request.getLocationText())
         .latitude(request.getLatitude())
         .longitude(request.getLongitude())
-        .priority(priority)
         .status(IssueStatus.OPEN)
         .createdByUserId(user.getId())
         .createdByName(user.getName())
+        .studentEmail(user.getEmail())
+        .supportingDocs(request.getSupportingDocs() != null ? request.getSupportingDocs() : new ArrayList<>())
         .createdAt(now)
         .updatedAt(now)
         .build();
@@ -76,6 +86,38 @@ public class IssueService {
         .createdAt(now)
         .build());
 
+    // Generate update token for email links
+    String token = UUID.randomUUID().toString();
+    UpdateToken updateToken = UpdateToken.builder()
+        .token(token)
+        .issueId(saved.getId())
+        .status(null)
+        .isUsed(false)
+        .createdAt(now)
+        .expiresAt(now.plusDays(30))
+        .build();
+    updateTokenRepository.save(updateToken);
+
+    String departmentEmail = getDepartmentEmail(saved.getCategory());
+
+        try {
+      emailService.sendNewIssueEmail(
+          departmentEmail,
+          saved.getId(),
+          saved.getTitle(),
+          saved.getCategory(),
+          saved.getDescription(),
+          saved.getBuilding() != null ? saved.getBuilding() : saved.getLocationText(),
+          now.toString(),
+          user.getName(),
+          user.getEmail(),  // ← ADD THIS LINE - student's email for Reply-To
+          token,
+          saved.getImageUrls(),
+          saved.getSupportingDocs());
+    } catch (Exception e) {
+      System.err.println("Failed to send email: " + e.getMessage());
+    }
+
     return toResponse(saved);
   }
 
@@ -83,7 +125,6 @@ public class IssueService {
       IssueStatus status,
       String category,
       String building,
-      IssuePriority priority,
       String assignedToUserId,
       String createdByUserId,
       String keyword) {
@@ -99,9 +140,6 @@ public class IssueService {
     }
     if (StringUtils.hasText(building)) {
       criteria.add(Criteria.where("building").is(building));
-    }
-    if (priority != null) {
-      criteria.add(Criteria.where("priority").is(priority));
     }
     if (StringUtils.hasText(assignedToUserId)) {
       criteria.add(Criteria.where("assignedToUserId").is(assignedToUserId));
@@ -140,42 +178,186 @@ public class IssueService {
       throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not allowed to update this issue");
     }
 
+    // Store old values before updating (for email notification)
+    String oldCategory = issue.getCategory();
+    String oldTitle = issue.getTitle();
+    String oldDescription = issue.getDescription();
+    String oldBuilding = issue.getBuilding();
+    String oldLocationText = issue.getLocationText();
+
+    boolean hasChanges = false;
+
     if (StringUtils.hasText(request.getTitle())) {
       issue.setTitle(request.getTitle());
+      hasChanges = true;
     }
     if (StringUtils.hasText(request.getCategory())) {
       issue.setCategory(request.getCategory());
+      hasChanges = true;
     }
     if (StringUtils.hasText(request.getDescription())) {
       issue.setDescription(request.getDescription());
+      hasChanges = true;
     }
-    if (request.getImageUrl() != null) {
-      issue.setImageUrl(request.getImageUrl());
+    if (request.getImageUrls() != null) {
+      issue.setImageUrls(request.getImageUrls());
+      hasChanges = true;
+    }
+    if (request.getSupportingDocs() != null) {
+      issue.setSupportingDocs(request.getSupportingDocs());
+      hasChanges = true;
     }
     if (request.getBuilding() != null) {
       issue.setBuilding(request.getBuilding());
+      hasChanges = true;
     }
     if (request.getLocationText() != null) {
       issue.setLocationText(request.getLocationText());
+      hasChanges = true;
     }
     if (request.getLatitude() != null) {
       issue.setLatitude(request.getLatitude());
+      hasChanges = true;
     }
     if (request.getLongitude() != null) {
       issue.setLongitude(request.getLongitude());
-    }
-    if (request.getPriority() != null) {
-      issue.setPriority(request.getPriority());
+      hasChanges = true;
     }
     if (isAdmin && request.getAdminNotes() != null) {
       issue.setAdminNotes(request.getAdminNotes());
+      hasChanges = true;
     }
 
-    ensureLocationProvided(issue.getBuilding(), issue.getLocationText());
+    // Also handle floor if present in request
+    if (request.getFloor() != null) {
+      issue.setFloor(request.getFloor());
+      hasChanges = true;
+    }
+
+    // Handle academic fields if present
+    if (request.getAcademicIssueCategory() != null) {
+      issue.setAcademicIssueCategory(request.getAcademicIssueCategory());
+      hasChanges = true;
+    }
+    if (request.getFaculty() != null) {
+      issue.setFaculty(request.getFaculty());
+      hasChanges = true;
+    }
+    if (request.getModuleCode() != null) {
+      issue.setModuleCode(request.getModuleCode());
+      hasChanges = true;
+    }
+
+    ensureLocationProvided(issue.getBuilding(), issue.getLocationText(), issue.getCategory());
     issue.setUpdatedAt(LocalDateTime.now());
 
     CampusIssue saved = issueRepository.save(issue);
+
+    // Add timeline entry for the update
+    if (hasChanges) {
+      String changeSummary = buildChangeSummary(oldTitle, saved.getTitle(), oldCategory, saved.getCategory(),
+          oldDescription, saved.getDescription(), oldBuilding, saved.getBuilding(),
+          oldLocationText, saved.getLocationText());
+
+      commentRepository.save(IssueComment.builder()
+          .issueId(saved.getId())
+          .userId(user.getId())
+          .userName(user.getName())
+          .message("Issue updated: " + changeSummary)
+          .type(IssueTimelineType.COMMENT)
+          .createdAt(LocalDateTime.now())
+          .build());
+
+      // Send email notifications
+      try {
+        String studentEmail = saved.getStudentEmail();
+        String studentName = saved.getCreatedByName();
+
+        String location = saved.getBuilding() != null ? saved.getBuilding() : saved.getLocationText();
+        if (location == null) location = "Not specified";
+
+        List<String> imageUrls = saved.getImageUrls() != null ? saved.getImageUrls() : new ArrayList<>();
+        List<SupportingDocument> supportingDocs = saved.getSupportingDocs() != null ? saved.getSupportingDocs() : new ArrayList<>();
+
+        boolean categoryChanged = oldCategory != null && !oldCategory.equals(saved.getCategory());
+        
+        String tokenToUse = null;
+        
+        if (categoryChanged) {
+    // Category changed - create and save a NEW token for the new department
+    String newToken = UUID.randomUUID().toString();
+    LocalDateTime now = LocalDateTime.now();
+    UpdateToken newUpdateToken = UpdateToken.builder()
+        .token(newToken)
+        .issueId(saved.getId())
+        .status(null)
+        .isUsed(false)
+        .createdAt(now)
+        .expiresAt(now.plusDays(30))
+        .build();
+    updateTokenRepository.save(newUpdateToken);
+    tokenToUse = newToken;
+    log.info("Created NEW token for category change: {} -> {}, token={}", oldCategory, saved.getCategory(), newToken);
+} else {
+    tokenToUse = updateTokenRepository.findByIssueId(saved.getId())
+        .map(UpdateToken::getToken)
+        .orElse(null);
+    log.info("Using existing token for update: {}", tokenToUse);
+}
+
+// Then pass tokenToUse to email service
+emailService.sendIssueUpdateEmail(
+    oldCategory,
+    saved.getCategory(),
+    saved.getId(),
+    saved.getTitle(),
+    saved.getDescription(),
+    location,
+    user.getName(),
+    studentEmail,
+    studentName,
+    imageUrls,
+    supportingDocs,
+    tokenToUse  // This is the token that should be used in the email
+);
+            
+      } catch (Exception e) {
+        log.error("Failed to send issue update email for issueId={}: {}", saved.getId(), e.getMessage());
+      }
+    }
+
     return toResponse(saved);
+  }
+
+  /**
+   * Build a summary of changes for the timeline comment
+   */
+  private String buildChangeSummary(String oldTitle, String newTitle, String oldCategory, String newCategory,
+      String oldDescription, String newDescription, String oldBuilding, String newBuilding,
+      String oldLocationText, String newLocationText) {
+
+    List<String> changes = new ArrayList<>();
+
+    if (!oldTitle.equals(newTitle)) {
+      changes.add("title changed from '" + oldTitle + "' to '" + newTitle + "'");
+    }
+    if (!oldCategory.equals(newCategory)) {
+      changes.add("category changed from " + oldCategory + " to " + newCategory);
+    }
+    if (!oldDescription.equals(newDescription)) {
+      changes.add("description updated");
+    }
+    if (oldBuilding != null && !oldBuilding.equals(newBuilding) && newBuilding != null) {
+      changes.add("building changed from " + oldBuilding + " to " + newBuilding);
+    }
+    if (oldLocationText != null && !oldLocationText.equals(newLocationText) && newLocationText != null) {
+      changes.add("location changed from " + oldLocationText + " to " + newLocationText);
+    }
+
+    if (changes.isEmpty()) {
+      return "details updated";
+    }
+    return String.join(", ", changes);
   }
 
   public void deleteIssue(String id) {
@@ -270,6 +452,25 @@ public class IssueService {
     issue.setUpdatedAt(LocalDateTime.now());
     issueRepository.save(issue);
 
+        // Send email notification to department when student adds a comment
+    try {
+      String departmentEmail = getDepartmentEmail(issue.getCategory());
+      if (departmentEmail != null && StringUtils.hasText(departmentEmail)) {
+        String studentEmail = user.getEmail();
+        String studentName = user.getName();
+        
+        emailService.sendIssueCommentEmail(
+            departmentEmail,
+            issue.getId(),
+            issue.getTitle(),
+            request.getMessage(),
+            studentName,
+            studentEmail);
+      }
+    } catch (Exception e) {
+      log.error("Failed to send comment notification email: {}", e.getMessage());
+    }
+
     return toCommentResponse(comment);
   }
 
@@ -282,10 +483,103 @@ public class IssueService {
         .toList();
   }
 
-  private void ensureLocationProvided(String building, String locationText) {
-    if (!StringUtils.hasText(building) && !StringUtils.hasText(locationText)) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Building or location text is required");
+  public IssueResponse updateStatusViaToken(String token, String status, String note, String userEmail) {
+    UpdateToken updateToken = updateTokenRepository.findByToken(token)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid or expired token"));
+
+    CampusIssue issue = issueRepository.findById(updateToken.getIssueId())
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
+
+    IssueStatus newStatus;
+    try {
+      newStatus = IssueStatus.valueOf(status);
+    } catch (IllegalArgumentException e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid status: " + status);
     }
+
+    if (issue.getStatus() == IssueStatus.RESOLVED || issue.getStatus() == IssueStatus.REJECTED) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+          "This issue is already " + issue.getStatus() + " and cannot be changed");
+    }
+
+    if (issue.getStatus() == newStatus) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+          "Issue is already " + newStatus);
+    }
+
+    IssueStatus oldStatus = issue.getStatus();
+
+    issue.setStatus(newStatus);
+    issue.setUpdatedAt(LocalDateTime.now());
+
+    if (note != null && !note.trim().isEmpty()) {
+      String existingNotes = issue.getAdminNotes();
+      if (existingNotes != null && !existingNotes.isEmpty()) {
+        issue.setAdminNotes(existingNotes + "\n[" + LocalDateTime.now() + "] " + note);
+      } else {
+        issue.setAdminNotes("[" + LocalDateTime.now() + "] " + note);
+      }
+    }
+
+    CampusIssue saved = issueRepository.save(issue);
+
+    if (newStatus == IssueStatus.RESOLVED || newStatus == IssueStatus.REJECTED) {
+      updateToken.setIsUsed(true);
+      updateToken.setUsedByEmail(userEmail);
+      updateToken.setUsedAt(LocalDateTime.now().toString());
+      updateTokenRepository.save(updateToken);
+    }
+
+    commentRepository.save(IssueComment.builder()
+        .issueId(saved.getId())
+        .userId("system")
+        .userName("System")
+        .message(String.format("Status updated from %s to %s via email", oldStatus, newStatus) +
+            (note != null && !note.isEmpty() ? ": " + note : ""))
+        .type(IssueTimelineType.STATUS_CHANGE)
+        .createdAt(LocalDateTime.now())
+        .build());
+
+    return toResponse(saved);
+  }
+
+  public IssueCommentResponse addNoteViaToken(String token, String note, String userEmail) {
+    UpdateToken updateToken = updateTokenRepository.findByToken(token)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid or expired token"));
+
+    CampusIssue issue = issueRepository.findById(updateToken.getIssueId())
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
+
+    if (note == null || note.trim().isEmpty()) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Note cannot be empty");
+    }
+
+    IssueComment comment = commentRepository.save(IssueComment.builder()
+        .issueId(issue.getId())
+        .userId("system")
+        .userName("Staff")
+        .message(note)
+        .type(IssueTimelineType.NOTE)
+        .createdAt(LocalDateTime.now())
+        .build());
+
+    updateToken.setIsUsed(true);
+    updateToken.setUsedByEmail(userEmail);
+    updateToken.setUsedAt(LocalDateTime.now().toString());
+    updateTokenRepository.save(updateToken);
+
+    return toCommentResponse(comment);
+  }
+
+  private void ensureLocationProvided(String building, String locationText, String category) {
+    // Only validate for categories that require location
+    if (category != null && (category.equals("FACILITIES") || category.equals("IT_SERVICES"))) {
+      if (!StringUtils.hasText(building) && !StringUtils.hasText(locationText)) {
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+            "Building or location text is required for " + category + " issues");
+      }
+    }
+    // For SECURITY, OTHER, ACADEMIC - location is optional or auto-generated
   }
 
   private User getCurrentUser() {
@@ -316,19 +610,29 @@ public class IssueService {
     return user;
   }
 
+  private String getDepartmentEmail(String category) {
+    Map<String, String> departmentEmails = new HashMap<>();
+    departmentEmails.put("FACILITIES", "kkdsashani@gmail.com");
+    departmentEmails.put("IT_SERVICES", "kkdsashani@gmail.com");
+    departmentEmails.put("SECURITY", "kkdsashani@gmail.com");
+    departmentEmails.put("ACADEMIC", "kkdsashani@gmail.com");
+    departmentEmails.put("OTHER", "kkdsashani@gmail.com");
+
+    return departmentEmails.getOrDefault(category, "kkdsashani@gmail.com");
+  }
+
   private IssueResponse toResponse(CampusIssue issue) {
     return IssueResponse.builder()
         .id(issue.getId())
         .title(issue.getTitle())
         .category(issue.getCategory())
         .description(issue.getDescription())
-        .imageUrl(issue.getImageUrl())
+        .imageUrls(issue.getImageUrls() != null ? issue.getImageUrls() : new ArrayList<>())
         .building(issue.getBuilding())
         .locationText(issue.getLocationText())
         .latitude(issue.getLatitude())
         .longitude(issue.getLongitude())
         .status(issue.getStatus())
-        .priority(issue.getPriority())
         .createdByUserId(issue.getCreatedByUserId())
         .createdByName(issue.getCreatedByName())
         .assignedToUserId(issue.getAssignedToUserId())
@@ -336,6 +640,7 @@ public class IssueService {
         .adminNotes(issue.getAdminNotes())
         .createdAt(issue.getCreatedAt())
         .updatedAt(issue.getUpdatedAt())
+        .supportingDocs(issue.getSupportingDocs() != null ? issue.getSupportingDocs() : new ArrayList<>())
         .build();
   }
 

@@ -263,43 +263,6 @@ public class TutorRequestService {
         .build();
   }
 
-  // Student cancels own request when still pending/accepted.
-  public TutorRequestActionResponse cancelRequest(String id) {
-    TutorRequest req = repository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "Request not found"));
-
-    User currentUser = getCurrentUser();
-    if (currentUser == null) {
-      throw new ResponseStatusException(FORBIDDEN, "Unauthorized");
-    }
-
-    boolean owner = req.getStudentId() != null && req.getStudentId().equals(currentUser.getId());
-    if (!owner) {
-      throw new ResponseStatusException(FORBIDDEN, "You can only cancel your own requests");
-    }
-
-    String currentStatus = req.getStatus() == null ? "" : req.getStatus().trim().toUpperCase(Locale.ROOT);
-    if (!("REQUESTED".equals(currentStatus) || "PENDING".equals(currentStatus) || "ACCEPTED".equals(currentStatus))) {
-      throw new ResponseStatusException(BAD_REQUEST, "Only requested or accepted requests can be cancelled");
-    }
-
-    req.setStatus("CANCELLED");
-    req.setUpdatedAt(Instant.now().toString());
-    TutorRequest saved = repository.save(req);
-
-    try {
-      emailService.sendTutorRequestCancelledEmail(saved);
-    } catch (Exception ex) {
-      log.error("Failed to send cancellation email for tutor request {}", saved.getId(), ex);
-    }
-
-    return TutorRequestActionResponse.builder()
-        .request(saved)
-        .message("Request cancelled successfully")
-        .warning(null)
-        .build();
-  }
-
   // Hard delete for cleanup operations.
   public void delete(String id) {
     repository.deleteById(id);

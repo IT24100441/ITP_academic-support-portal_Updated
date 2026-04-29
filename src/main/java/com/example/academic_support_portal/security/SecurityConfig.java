@@ -15,14 +15,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpMethod;
 import java.util.Arrays;
 import java.util.List;
@@ -35,10 +33,6 @@ public class SecurityConfig {
 
   private final JwtAuthenticationFilter jwtAuthFilter;
   private final UserDetailsService userDetailsService;
-
-  private final AuthenticationEntryPoint unauthorizedEntryPoint =
-      (request, response, authException) ->
-          response.sendError(HttpStatus.UNAUTHORIZED.value(), "Unauthorized");
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -54,8 +48,11 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.GET, "/api/dashboard/environment").permitAll()
             .requestMatchers("/api/resources/**").permitAll()
             .requestMatchers("/api/debug/**").permitAll()
+            .requestMatchers("/api/public/**").permitAll()
+            .requestMatchers("/api/issues/update-status").permitAll()
+            .requestMatchers("/api/issues/add-note").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/issues/*/comments").permitAll()
             .anyRequest().authenticated())
-        .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedEntryPoint))
         .sessionManagement(session -> session
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authenticationProvider(authenticationProvider())

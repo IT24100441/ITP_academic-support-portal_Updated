@@ -10,6 +10,7 @@ import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import StudySpotsPage from "../pages/study-spots/StudySpotsPage";
 import IssuesPage from "../pages/issues/IssuesPage";
+import PublicIssueView from "../pages/issues/PublicIssueView";
 import EquipmentPage from "../pages/equipment/EquipmentPage";
 import EnvironmentPage from "../pages/environment/EnvironmentPage";
 import AcademicSupportPage from "../pages/support/AcademicSupportPage";
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     {
         path: "/register",
         element: <Register />,
+    },
+    {
+        path: "/public/issue/:id",
+        element: <PublicIssueView />,
     },
     {
         path: "/",

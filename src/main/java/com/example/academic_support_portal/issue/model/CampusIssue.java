@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -25,7 +26,9 @@ public class CampusIssue {
 
   private String description;
 
-  private String imageUrl;
+  private List<String> imageUrls;
+
+  private List<SupportingDocument> supportingDocs;
 
   private String building;
 
@@ -36,8 +39,6 @@ public class CampusIssue {
   private Double longitude;
 
   private IssueStatus status;
-
-  private IssuePriority priority;
 
   private String createdByUserId;
 
@@ -52,4 +53,15 @@ public class CampusIssue {
   private LocalDateTime createdAt;
 
   private LocalDateTime updatedAt;
+
+  private String studentEmail;
+
+  private String floor;
+
+  private String academicIssueCategory;
+
+  private String faculty;
+  
+  private String moduleCode;
+
 }

@@ -11,8 +11,6 @@ export default function MyRequests() {
     const [search, setSearch] = useState("");
     const [statusFilter, setStatusFilter] = useState("All");
     const [sortOrder, setSortOrder] = useState("desc");
-    const [successMessage, setSuccessMessage] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
 
     // Fetch only requests created by the logged-in student.
     const loadRequests = async () => {
@@ -32,19 +30,13 @@ export default function MyRequests() {
         loadRequests();
     }, []);
 
-    // Cancel eligible requests owned by the current student.
+    // Soft-cancel by switching request status to REJECTED.
     const cancelRequest = async (id) => {
-        const confirmed = window.confirm("Are you sure you want to cancel this tutor request?");
-        if (!confirmed) return;
-
         try {
-            setSuccessMessage("");
-            setErrorMessage("");
-            await tutorRequestApi.cancel(id);
-            setSuccessMessage("Request cancelled successfully.");
-            await loadRequests();
+            await tutorRequestApi.updateStatus(id, "REJECTED");
+            loadRequests();
         } catch (e) {
-            setErrorMessage(e?.response?.data?.message || "Failed to cancel request.");
+            alert("Failed to cancel request.");
         }
     };
 
@@ -67,7 +59,7 @@ export default function MyRequests() {
         return data;
     }, [requests, search, statusFilter, sortOrder]);
 
-    const pendingCount = requests.filter((r) => r.status === "PENDING" || r.status === "REQUESTED").length;
+    const pendingCount = requests.filter((r) => r.status === "PENDING").length;
 
     return (
         <div>
@@ -90,17 +82,6 @@ export default function MyRequests() {
                 </div>
             </div>
 
-            {successMessage && (
-                <div className="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-700">
-                    {successMessage}
-                </div>
-            )}
-            {errorMessage && (
-                <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-700">
-                    {errorMessage}
-                </div>
-            )}
-
             <div className="panel filters-modern" style={{ display: "flex", gap: 10, marginTop: 20 }}>
                 <input
                     type="text"
@@ -112,12 +93,9 @@ export default function MyRequests() {
                 />
                 <select className="input" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
                     <option>All</option>
-                    <option>REQUESTED</option>
                     <option>PENDING</option>
                     <option>ACCEPTED</option>
                     <option>REJECTED</option>
-                    <option>CANCELLED</option>
-                    <option>COMPLETED</option>
                 </select>
                 <select className="input" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
                     <option value="desc">Newest First</option>
@@ -142,13 +120,8 @@ export default function MyRequests() {
                                 <div>{r.preferredDay}</div>
                                 <div><span className={`badge ${r.status.toLowerCase()}`}>{r.status}</span></div>
                                 <div>
-                                    {(r.status === "REQUESTED" || r.status === "ACCEPTED") && (
-                                        <button
-                                            className="bg-red-500 hover:bg-red-600 text-white text-xs font-semibold rounded px-3 py-1"
-                                            onClick={() => cancelRequest(r.id)}
-                                        >
-                                            Cancel Request
-                                        </button>
+                                    {r.status === "PENDING" && (
+                                        <button className="btn-outline small" onClick={() => cancelRequest(r.id)}>Cancel</button>
                                     )}
                                 </div>
                             </div>

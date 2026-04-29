@@ -1,8 +1,11 @@
 package com.example.academic_support_portal.issue.dto;
 
 import com.example.academic_support_portal.issue.model.IssuePriority;
+import com.example.academic_support_portal.issue.model.SupportingDocument;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class IssueUpdateRequest {
@@ -15,7 +18,7 @@ public class IssueUpdateRequest {
   @Size(min = 10, message = "Description must be at least 10 characters")
   private String description;
 
-  private String imageUrl;
+  private List<String> imageUrls;
 
   private String building;
 
@@ -28,4 +31,13 @@ public class IssueUpdateRequest {
   private IssuePriority priority;
 
   private String adminNotes;
+
+  private List<SupportingDocument> supportingDocs;
+
+  private String floor;
+  private String academicIssueCategory;
+  private String faculty;
+  private String moduleCode;
+
+  private String customTitle;
 }
